@@ -1,0 +1,197 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ExternalLink, Filter } from 'lucide-react';
+
+const Portfolio: React.FC = () => {
+  const [activeFilter, setActiveFilter] = useState('الكل');
+
+  const filters = ['الكل', 'تطوير المواقع', 'أنظمة ERP', 'التجارة الإلكترونية', 'تطبيقات الجوال'];
+
+  const projects = [
+    {
+      id: 1,
+      title: 'نظام إدارة المطاعم',
+      category: 'أنظمة ERP',
+      description: 'نظام شامل لإدارة المطاعم والمقاهي مع نقاط البيع وإدارة المخزون',
+      image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600',
+      tags: ['Odoo', 'POS', 'إدارة المخزون'],
+      link: '#'
+    },
+    {
+      id: 2,
+      title: 'متجر الأزياء الإلكتروني',
+      category: 'التجارة الإلكترونية',
+      description: 'متجر إلكتروني متكامل لبيع الأزياء مع نظام دفع آمن وإدارة الطلبات',
+      image: 'https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg?auto=compress&cs=tinysrgb&w=600',
+      tags: ['React', 'E-commerce', 'Payment Gateway'],
+      link: '#'
+    },
+    {
+      id: 3,
+      title: 'تطبيق خدمات التوصيل',
+      category: 'تطبيقات الجوال',
+      description: 'تطبيق جوال لخدمات التوصيل مع تتبع الطلبات والدفع الإلكتروني',
+      image: 'https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=600',
+      tags: ['React Native', 'GPS', 'Real-time'],
+      link: '#'
+    },
+    {
+      id: 4,
+      title: 'موقع شركة استشارات',
+      category: 'تطوير المواقع',
+      description: 'موقع إلكتروني احترافي لشركة استشارات مع نظام إدارة المحتوى',
+      image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600',
+      tags: ['WordPress', 'SEO', 'Responsive'],
+      link: '#'
+    },
+    {
+      id: 5,
+      title: 'نظام إدارة المدارس',
+      category: 'أنظمة ERP',
+      description: 'نظام شامل لإدارة المدارس والطلاب والمعلمين والمناهج',
+      image: 'https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=600',
+      tags: ['Odoo', 'Education', 'Management'],
+      link: '#'
+    },
+    {
+      id: 6,
+      title: 'منصة التعلم الإلكتروني',
+      category: 'تطوير المواقع',
+      description: 'منصة تعليمية تفاعلية مع نظام إدارة الدورات والطلاب',
+      image: 'https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&cs=tinysrgb&w=600',
+      tags: ['React', 'LMS', 'Interactive'],
+      link: '#'
+    }
+  ];
+
+  const filteredProjects = activeFilter === 'الكل' 
+    ? projects 
+    : projects.filter(project => project.category === activeFilter);
+
+  return (
+    <section id="portfolio" className="section-padding bg-gray-50">
+      <div className="container-custom">
+        {/* Header */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            معرض
+            <span className="gradient-text"> أعمالنا</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            نفخر بعرض مجموعة من مشاريعنا الناجحة التي حققت نتائج مميزة لعملائنا
+          </p>
+        </motion.div>
+
+        {/* Filters */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-4 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          {filters.map((filter) => (
+            <button
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                activeFilter === filter
+                  ? 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-lg'
+                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+              }`}
+            >
+              <Filter className="w-4 h-4 inline-block ml-2" />
+              {filter}
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence>
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white rounded-2xl overflow-hidden shadow-lg card-hover group"
+              >
+                {/* Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <button className="w-full bg-white/20 backdrop-blur-md text-white py-2 px-4 rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors">
+                        <ExternalLink className="w-4 h-4 ml-2" />
+                        عرض المشروع
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <div className="text-sm text-primary-600 font-medium mb-2">
+                    {project.category}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4 leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+
+        {/* CTA */}
+        <motion.div
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h3 className="text-3xl font-bold text-gray-900 mb-4">
+            هل لديك مشروع في ذهنك؟
+          </h3>
+          <p className="text-xl text-gray-600 mb-8">
+            دعنا نساعدك في تحويل فكرتك إلى واقع
+          </p>
+          <button className="btn-primary text-lg px-8 py-4">
+            ابدأ مشروعك الآن
+          </button>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Portfolio;
