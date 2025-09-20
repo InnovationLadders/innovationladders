@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Target, Eye, Heart, Users, Award, Zap } from 'lucide-react';
+import { Target, Eye, Heart, Users, Award, Zap, Lightbulb } from 'lucide-react';
 
 const About: React.FC = () => {
   const values = [
