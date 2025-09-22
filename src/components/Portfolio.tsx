@@ -10,27 +10,27 @@ const Portfolio: React.FC = () => {
   const projects = [
     {
       id: 1,
-      title: 'نظام إدارة المطاعم',
+      title: 'نظام Odoo ERP ',
       category: 'أنظمة ERP',
-      description: 'نظام شامل لإدارة المطاعم والمقاهي مع نقاط البيع وإدارة المخزون',
+      description: 'الحل الأمثل لإدارة أعمال منشأتك التعليمية بالكامل نظام الموارد المؤسسية المتكامل (ERP)',
       image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600',
       tags: ['Odoo', 'POS', 'إدارة المخزون'],
       link: '#'
     },
     {
       id: 2,
-      title: 'متجر الأزياء الإلكتروني',
+      title: 'متجر زيارات',
       category: 'التجارة الإلكترونية',
-      description: 'متجر إلكتروني متكامل لبيع الأزياء مع نظام دفع آمن وإدارة الطلبات',
+      description: 'متجر إلكتروني متكامل متخصص لمنتجات وهدايا الزيارات ',
       image: 'https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg?auto=compress&cs=tinysrgb&w=600',
       tags: ['React', 'E-commerce', 'Payment Gateway'],
       link: '#'
     },
     {
       id: 3,
-      title: 'تطبيق خدمات التوصيل',
+      title: 'تطبيق TryHub',
       category: 'تطبيقات الجوال',
-      description: 'تطبيق جوال لخدمات التوصيل مع تتبع الطلبات والدفع الإلكتروني',
+      description: 'تطبيق تواصل اجتماعي لمشاركة التجارب الشخصية الناجحة',
       image: 'https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=600',
       tags: ['React Native', 'GPS', 'Real-time'],
       link: '#'
@@ -55,9 +55,9 @@ const Portfolio: React.FC = () => {
     },
     {
       id: 6,
-      title: 'منصة التعلم الإلكتروني',
+      title: 'منصة مشروعي لإدارة المشاريع الطلابية',
       category: 'تطوير المواقع',
-      description: 'منصة تعليمية تفاعلية مع نظام إدارة الدورات والطلاب',
+      description: 'منصة لادارة المشاريع الطلابية وتعزيز التعلم القائم على المشاريع ',
       image: 'https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&cs=tinysrgb&w=600',
       tags: ['React', 'LMS', 'Interactive'],
       link: '#'
