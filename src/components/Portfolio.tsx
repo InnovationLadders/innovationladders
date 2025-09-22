@@ -13,7 +13,7 @@ const Portfolio: React.FC = () => {
       title: 'نظام Odoo ERP ',
       category: 'أنظمة ERP',
       description: 'الحل الأمثل لإدارة أعمال منشأتك التعليمية بالكامل نظام الموارد المؤسسية المتكامل (ERP)',
-      image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/images/odoo1.webp',
       tags: ['Odoo', 'POS', 'إدارة المخزون'],
       link: '#'
     },
