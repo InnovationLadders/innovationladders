@@ -13,7 +13,7 @@ const Portfolio: React.FC = () => {
       title: 'نظام Odoo ERP ',
       category: 'أنظمة ERP',
       description: 'الحل الأمثل لإدارة أعمال منشأتك التعليمية بالكامل نظام الموارد المؤسسية المتكامل (ERP)',
-      image: '/images/odoo1.webp',
+      image: '/images/portfolio/odoo-erp-system.webp',
       tags: ['Odoo', 'POS', 'إدارة المخزون'],
       link: '#'
     },
@@ -22,7 +22,7 @@ const Portfolio: React.FC = () => {
       title: 'متجر زيارات',
       category: 'التجارة الإلكترونية',
       description: 'متجر إلكتروني متكامل متخصص لمنتجات وهدايا الزيارات ',
-      image: 'https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/images/portfolio/ziarat-store.webp',
       tags: ['React', 'E-commerce', 'Payment Gateway'],
       link: '#'
     },
@@ -31,7 +31,7 @@ const Portfolio: React.FC = () => {
       title: 'تطبيق TryHub',
       category: 'تطبيقات الجوال',
       description: 'تطبيق تواصل اجتماعي لمشاركة التجارب الشخصية الناجحة',
-      image: 'https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/images/portfolio/tryhub-app.webp',
       tags: ['React Native', 'GPS', 'Real-time'],
       link: '#'
     },
@@ -40,7 +40,7 @@ const Portfolio: React.FC = () => {
       title: 'موقع شركة استشارات',
       category: 'تطوير المواقع',
       description: 'موقع إلكتروني احترافي لشركة استشارات مع نظام إدارة المحتوى',
-      image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/images/portfolio/consulting-website.webp',
       tags: ['WordPress', 'SEO', 'Responsive'],
       link: '#'
     },
@@ -49,7 +49,7 @@ const Portfolio: React.FC = () => {
       title: 'نظام إدارة المدارس',
       category: 'أنظمة ERP',
       description: 'نظام شامل لإدارة المدارس والطلاب والمعلمين والمناهج',
-      image: 'https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/images/portfolio/school-management-system.webp',
       tags: ['Odoo', 'Education', 'Management'],
       link: '#'
     },
@@ -58,7 +58,7 @@ const Portfolio: React.FC = () => {
       title: 'منصة مشروعي لإدارة المشاريع الطلابية',
       category: 'تطوير المواقع',
       description: 'منصة لادارة المشاريع الطلابية وتعزيز التعلم القائم على المشاريع ',
-      image: 'https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/images/portfolio/mashrooi-platform.webp',
       tags: ['React', 'LMS', 'Interactive'],
       link: '#'
     }
