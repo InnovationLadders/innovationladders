@@ -38,7 +38,7 @@ const AdminLogin: React.FC = () => {
             <Lightbulb className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">لوحة التحكم</h1>
-          <p className="text-gray-600">معمل الإبداع - Innovation Ladders</p>
+          <p className="text-gray-600">معمل الابتكار - Innovation Ladders</p>
         </div>
 
         {/* Error Message */}
