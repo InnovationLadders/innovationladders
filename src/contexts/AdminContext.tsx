@@ -138,11 +138,11 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // Mock authentication
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    if (email === 'admin@innovationladders.com' && password === 'admin123') {
+    if (email === 'mansour@innovationladders.com' && password === 'IL!ke123') {
       const user: User = {
         id: '1',
-        name: 'مدير النظام',
-        email: 'admin@innovationladders.com',
+        name: 'منصور الشهري',
+        email: 'mansour@innovationladders.com',
         role: 'admin',
         lastLogin: new Date().toISOString(),
         isActive: true
