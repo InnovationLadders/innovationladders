@@ -4,15 +4,33 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabaseServiceKey = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY;
 
+console.log('Supabase URL:', supabaseUrl);
+console.log('Supabase Anon Key exists:', !!supabaseAnonKey);
+console.log('Supabase Service Key exists:', !!supabaseServiceKey);
+
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+  console.error('Missing Supabase environment variables:', {
+    url: !!supabaseUrl,
+    anonKey: !!supabaseAnonKey
+  });
+  throw new Error('Missing Supabase environment variables. Please check your .env file.');
 }
 
 if (!supabaseServiceKey) {
   console.warn('VITE_SUPABASE_SERVICE_ROLE_KEY is not set. Admin operations may fail.');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true
+  },
+  global: {
+    headers: {
+      'X-Client-Info': 'innovation-ladders-website'
+    }
+  }
+});
 
 // Admin client with service role key to bypass RLS
 export const supabaseAdmin = supabaseServiceKey 
@@ -20,9 +38,20 @@ export const supabaseAdmin = supabaseServiceKey
       auth: {
         autoRefreshToken: false,
         persistSession: false
+      },
+      global: {
+        headers: {
+          'X-Client-Info': 'innovation-ladders-admin'
+        }
       }
     })
-  : createClient(supabaseUrl, supabaseAnonKey);
+  : createClient(supabaseUrl, supabaseAnonKey, {
+      global: {
+        headers: {
+          'X-Client-Info': 'innovation-ladders-fallback'
+        }
+      }
+    });
 // Types for database tables
 export interface DatabaseService {
   id: string;

@@ -16,6 +16,17 @@ export const useSupabaseData = () => {
       setLoading(true);
       setError(null);
 
+      // Test connection first
+      const { data: testData, error: testError } = await supabase
+        .from('services')
+        .select('count')
+        .limit(1);
+
+      if (testError) {
+        console.error('Supabase connection test failed:', testError);
+        throw new Error(`Connection failed: ${testError.message}`);
+      }
+
       // Fetch services
       const { data: servicesData, error: servicesError } = await supabase
         .from('services')
@@ -58,8 +69,14 @@ export const useSupabaseData = () => {
       setMessages(messagesData || []);
       setSiteSettings(settingsObject);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'حدث خطأ في تحميل البيانات');
+      const errorMessage = err instanceof Error ? err.message : 'حدث خطأ في تحميل البيانات';
       console.error('Error fetching data:', err);
+      console.error('Error details:', {
+        message: errorMessage,
+        supabaseUrl: import.meta.env.VITE_SUPABASE_URL,
+        hasAnonKey: !!import.meta.env.VITE_SUPABASE_ANON_KEY
+      });
+      setError(`خطأ في الاتصال بقاعدة البيانات: ${errorMessage}`);
     } finally {
       setLoading(false);
     }
