@@ -8,19 +8,21 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables');
 }
 
+if (!supabaseServiceKey) {
+  console.warn('VITE_SUPABASE_SERVICE_ROLE_KEY is not set. Admin operations may fail.');
+}
+
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Admin client with service role key to bypass RLS
-export const supabaseAdmin = createClient(
-  supabaseUrl, 
-  supabaseServiceKey || supabaseAnonKey,
-  {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false
-    }
-  }
-);
+export const supabaseAdmin = supabaseServiceKey 
+  ? createClient(supabaseUrl, supabaseServiceKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    })
+  : createClient(supabaseUrl, supabaseAnonKey);
 // Types for database tables
 export interface DatabaseService {
   id: string;
