@@ -184,6 +184,7 @@ const Footer: React.FC = () => {
               <a href="#" className="hover:text-white transition-colors">سياسة الخصوصية</a>
               <a href="#" className="hover:text-white transition-colors">شروط الاستخدام</a>
               <a href="#" className="hover:text-white transition-colors">ملفات تعريف الارتباط</a>
+              <a href="/admin" className="hover:text-white transition-colors">لوحة الإدارة</a>
             </motion.div>
           </div>
         </div>
