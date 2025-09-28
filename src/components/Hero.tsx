@@ -4,7 +4,7 @@ import { ArrowLeft, Users, Award, Zap, TrendingUp } from 'lucide-react';
 import { useSupabaseData } from '../hooks/useSupabaseData';
 
 const Hero: React.FC = () => {
-  const { siteSettings, projects, services } = useSupabaseData();
+  const { siteSettings, projects, services, loading } = useSupabaseData();
 
   const stats = [
     { icon: Users, number: '500+', label: 'عميل راضٍ' },
@@ -14,11 +14,22 @@ const Hero: React.FC = () => {
   ];
 
   // Get hero content from settings or use defaults
-  const heroContent = siteSettings.hero_section || {
+  const heroContent = siteSettings.heroSection || siteSettings.hero_section || {
     title: 'نحن نصنع الإبداع والابتكار',
     subtitle: 'معمل الإبداع بجدة',
     description: 'شريكك في التحول الرقمي وحلول الأعمال المبتكرة'
   };
+
+  if (loading) {
+    return (
+      <section id="home" className="relative min-h-screen flex items-center gradient-bg overflow-hidden">
+        <div className="container-custom relative z-10 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+          <p className="mt-4 text-white">جاري تحميل المحتوى...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="home" className="relative min-h-screen flex items-center gradient-bg overflow-hidden">

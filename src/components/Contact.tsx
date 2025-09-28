@@ -67,29 +67,29 @@ const Contact: React.FC = () => {
   };
 
   // Get contact info from site settings
-  const contactInfo = siteSettings.contact_info ? [
+  const contactInfo = (siteSettings.contactInfo || siteSettings.contact_info) ? [
     {
       icon: Phone,
       title: 'اتصل بنا',
-      details: siteSettings.contact_info.phone || ['+966 12 345 6789'],
+      details: (siteSettings.contactInfo || siteSettings.contact_info).phone || ['+966 12 345 6789'],
       color: 'from-green-500 to-green-600'
     },
     {
       icon: Mail,
       title: 'راسلنا',
-      details: siteSettings.contact_info.email || ['info@innovationladders.com'],
+      details: (siteSettings.contactInfo || siteSettings.contact_info).email || ['info@innovationladders.com'],
       color: 'from-blue-500 to-blue-600'
     },
     {
       icon: MapPin,
       title: 'زورنا',
-      details: siteSettings.contact_info.address || ['جدة، المملكة العربية السعودية'],
+      details: (siteSettings.contactInfo || siteSettings.contact_info).address || ['جدة، المملكة العربية السعودية'],
       color: 'from-red-500 to-red-600'
     },
     {
       icon: Clock,
       title: 'أوقات العمل',
-      details: siteSettings.contact_info.workingHours || ['الأحد - الخميس: 9:00 ص - 6:00 م'],
+      details: (siteSettings.contactInfo || siteSettings.contact_info).workingHours || ['الأحد - الخميس: 9:00 ص - 6:00 م'],
       color: 'from-purple-500 to-purple-600'
     }
   ] : [];

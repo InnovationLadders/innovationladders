@@ -64,6 +64,8 @@ export const useSupabaseData = () => {
         return acc;
       }, {} as Record<string, any>) || {};
 
+      console.log('Loaded site settings:', settingsObject);
+
       setServices(servicesData || []);
       setProjects(projectsData || []);
       setMessages(messagesData || []);
