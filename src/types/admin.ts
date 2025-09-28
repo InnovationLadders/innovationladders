@@ -14,8 +14,8 @@ export interface Service {
   features: string[];
   icon: string;
   color: string;
-  isActive: boolean;
-  order: number;
+  is_active: boolean;
+  order_index: number;
 }
 
 export interface Project {
@@ -26,8 +26,8 @@ export interface Project {
   image: string;
   tags: string[];
   link: string;
-  isActive: boolean;
-  order: number;
+  is_active: boolean;
+  order_index: number;
 }
 
 export interface ContactMessage {

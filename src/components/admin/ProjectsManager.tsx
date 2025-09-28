@@ -15,8 +15,8 @@ const ProjectsManager: React.FC = () => {
     image: '',
     tags: [''],
     link: '',
-    isActive: true,
-    order: projects.length + 1
+    is_active: true,
+    order_index: projects.length + 1
   });
 
   const categories = [
@@ -50,8 +50,8 @@ const ProjectsManager: React.FC = () => {
       image: '',
       tags: [''],
       link: '',
-      isActive: true,
-      order: projects.length + 1
+      is_active: true,
+      order_index: projects.length + 1
     });
   };
 
@@ -88,20 +88,20 @@ const ProjectsManager: React.FC = () => {
     }));
   };
 
-  const toggleProjectStatus = (id: string, isActive: boolean) => {
-    updateProject(id, { isActive: !isActive });
+  const toggleProjectStatus = (id: string, is_active: boolean) => {
+    updateProject(id, { is_active: !is_active });
   };
 
   const moveProject = (id: string, direction: 'up' | 'down') => {
     const project = projects.find(p => p.id === id);
     if (!project) return;
 
-    const newOrder = direction === 'up' ? project.order - 1 : project.order + 1;
-    const targetProject = projects.find(p => p.order === newOrder);
+    const newOrder = direction === 'up' ? project.order_index - 1 : project.order_index + 1;
+    const targetProject = projects.find(p => p.order_index === newOrder);
 
     if (targetProject) {
-      updateProject(id, { order: newOrder });
-      updateProject(targetProject.id, { order: project.order });
+      updateProject(id, { order_index: newOrder });
+      updateProject(targetProject.id, { order_index: project.order_index });
     }
   };
 
@@ -248,8 +248,8 @@ const ProjectsManager: React.FC = () => {
                 <label className="flex items-center">
                   <input
                     type="checkbox"
-                    checked={formData.isActive || false}
-                    onChange={(e) => setFormData(prev => ({ ...prev, isActive: e.target.checked }))}
+                    checked={formData.is_active || false}
+                    onChange={(e) => setFormData(prev => ({ ...prev, is_active: e.target.checked }))}
                     className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
                   />
                   <span className="mr-2 text-gray-700">مشروع نشط</span>
@@ -280,7 +280,7 @@ const ProjectsManager: React.FC = () => {
       {/* Projects Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects
-          .sort((a, b) => a.order - b.order)
+          .sort((a, b) => a.order_index - b.order_index)
           .map((project, index) => (
           <motion.div
             key={project.id}
@@ -298,11 +298,11 @@ const ProjectsManager: React.FC = () => {
               />
               <div className="absolute top-3 right-3 flex items-center space-x-2 space-x-reverse">
                 <span className={`px-2 py-1 text-xs rounded-full ${
-                  project.isActive 
+                  project.is_active 
                     ? 'bg-green-100 text-green-600' 
                     : 'bg-red-100 text-red-600'
                 }`}>
-                  {project.isActive ? 'نشط' : 'غير نشط'}
+                  {project.is_active ? 'نشط' : 'غير نشط'}
                 </span>
               </div>
               {project.link && (
@@ -362,10 +362,10 @@ const ProjectsManager: React.FC = () => {
               <div className="flex items-center justify-between pt-4 border-t border-gray-200">
                 <div className="flex items-center space-x-2 space-x-reverse">
                   <button
-                    onClick={() => toggleProjectStatus(project.id, project.isActive)}
+                    onClick={() => toggleProjectStatus(project.id, project.is_active)}
                     className="p-2 text-gray-400 hover:text-gray-600"
                   >
-                    {project.isActive ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {project.is_active ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                   <button
                     onClick={() => handleEdit(project)}
@@ -380,7 +380,7 @@ const ProjectsManager: React.FC = () => {
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
-                <span className="text-xs text-gray-500">ترتيب: {project.order}</span>
+                <span className="text-xs text-gray-500">ترتيب: {project.order_index}</span>
               </div>
             </div>
           </motion.div>

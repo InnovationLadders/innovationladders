@@ -14,8 +14,8 @@ const ServicesManager: React.FC = () => {
     features: [''],
     icon: 'Settings',
     color: 'from-blue-500 to-blue-600',
-    isActive: true,
-    order: services.length + 1
+    is_active: true,
+    order_index: services.length + 1
   });
 
   const iconOptions = [
@@ -52,8 +52,8 @@ const ServicesManager: React.FC = () => {
       features: [''],
       icon: 'Settings',
       color: 'from-blue-500 to-blue-600',
-      isActive: true,
-      order: services.length + 1
+      is_active: true,
+      order_index: services.length + 1
     });
   };
 
@@ -90,20 +90,20 @@ const ServicesManager: React.FC = () => {
     }));
   };
 
-  const toggleServiceStatus = (id: string, isActive: boolean) => {
-    updateService(id, { isActive: !isActive });
+  const toggleServiceStatus = (id: string, is_active: boolean) => {
+    updateService(id, { is_active: !is_active });
   };
 
   const moveService = (id: string, direction: 'up' | 'down') => {
     const service = services.find(s => s.id === id);
     if (!service) return;
 
-    const newOrder = direction === 'up' ? service.order - 1 : service.order + 1;
-    const targetService = services.find(s => s.order === newOrder);
+    const newOrder = direction === 'up' ? service.order_index - 1 : service.order_index + 1;
+    const targetService = services.find(s => s.order_index === newOrder);
 
     if (targetService) {
-      updateService(id, { order: newOrder });
-      updateService(targetService.id, { order: service.order });
+      updateService(id, { order_index: newOrder });
+      updateService(targetService.id, { order_index: service.order_index });
     }
   };
 
@@ -240,8 +240,8 @@ const ServicesManager: React.FC = () => {
                 <label className="flex items-center">
                   <input
                     type="checkbox"
-                    checked={formData.isActive || false}
-                    onChange={(e) => setFormData(prev => ({ ...prev, isActive: e.target.checked }))}
+                    checked={formData.is_active || false}
+                    onChange={(e) => setFormData(prev => ({ ...prev, is_active: e.target.checked }))}
                     className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
                   />
                   <span className="mr-2 text-gray-700">خدمة نشطة</span>
@@ -272,7 +272,7 @@ const ServicesManager: React.FC = () => {
       {/* Services List */}
       <div className="grid gap-6">
         {services
-          .sort((a, b) => a.order - b.order)
+          .sort((a, b) => a.order_index - b.order_index)
           .map((service, index) => (
           <motion.div
             key={service.id}
@@ -290,11 +290,11 @@ const ServicesManager: React.FC = () => {
                   <div className="flex items-center space-x-3 space-x-reverse mb-2">
                     <h3 className="text-lg font-bold text-gray-900">{service.title}</h3>
                     <span className={`px-2 py-1 text-xs rounded-full ${
-                      service.isActive 
+                      service.is_active 
                         ? 'bg-green-100 text-green-600' 
                         : 'bg-red-100 text-red-600'
                     }`}>
-                      {service.isActive ? 'نشط' : 'غير نشط'}
+                      {service.is_active ? 'نشط' : 'غير نشط'}
                     </span>
                   </div>
                   <p className="text-gray-600 mb-3">{service.description}</p>
@@ -324,10 +324,10 @@ const ServicesManager: React.FC = () => {
                   <ArrowDown className="w-4 h-4" />
                 </button>
                 <button
-                  onClick={() => toggleServiceStatus(service.id, service.isActive)}
+                  onClick={() => toggleServiceStatus(service.id, service.is_active)}
                   className="p-2 text-gray-400 hover:text-gray-600"
                 >
-                  {service.isActive ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {service.is_active ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
                 <button
                   onClick={() => handleEdit(service)}
