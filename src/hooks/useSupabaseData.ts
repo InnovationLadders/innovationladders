@@ -238,7 +238,7 @@ export const useSupabaseData = () => {
     try {
       const { data, error } = await supabaseAdmin
         .from('site_settings')
-        .upsert({ key, value })
+        .upsert({ key, value }, { onConflict: 'key' })
         .select()
         .single();
 
