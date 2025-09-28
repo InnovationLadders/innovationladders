@@ -1,16 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Plus, 
-  Edit, 
-  Trash2, 
-  Save, 
-  X, 
-  Eye, 
-  EyeOff,
-  ArrowUp,
-  ArrowDown
-} from 'lucide-react';
+import { Plus, FileEdit as Edit, Trash2, Save, X, Eye, EyeOff, ArrowUp, ArrowDown } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
 import { Service } from '../../types/admin';
 

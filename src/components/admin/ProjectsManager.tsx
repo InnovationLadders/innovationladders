@@ -1,18 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Plus, 
-  Edit, 
-  Trash2, 
-  Save, 
-  X, 
-  Eye, 
-  EyeOff,
-  ArrowUp,
-  ArrowDown,
-  ExternalLink,
-  Image as ImageIcon
-} from 'lucide-react';
+import { Plus, FileEdit as Edit, Trash2, Save, X, Eye, EyeOff, ArrowUp, ArrowDown, ExternalLink, Image as ImageIcon } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
 import { Project } from '../../types/admin';
 
