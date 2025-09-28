@@ -1,23 +1,35 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Target, Eye, Heart, Users, Award, Zap, Lightbulb } from 'lucide-react';
+import { useSupabaseData } from '../hooks/useSupabaseData';
 
 const About: React.FC = () => {
+  const { siteSettings, projects, services } = useSupabaseData();
+
+  // Get about content from settings or use defaults
+  const aboutContent = siteSettings.about_section || {
+    title: 'عن معمل الإبداع',
+    description: 'نحن فريق من المبدعين والمبتكرين، نعمل على تقديم حلول تقنية متطورة',
+    mission: 'نسعى لتكون الشريك الأول في التحول الرقمي والابتكار',
+    vision: 'أن نكون رواد الإبداع والابتكار في المملكة العربية السعودية',
+    values: 'الجودة، الإبداع، الشفافية، والالتزام بتحقيق رضا العملاء'
+  };
+
   const values = [
     {
       icon: Target,
-      title: 'الهدف',
-      description: 'نسعى لتكون الشريك الأول في التحول الرقمي والابتكار'
+      title: 'الرسالة',
+      description: aboutContent.mission
     },
     {
       icon: Eye,
       title: 'الرؤية',
-      description: 'أن نكون رواد الإبداع والابتكار في المملكة العربية السعودية'
+      description: aboutContent.vision
     },
     {
       icon: Heart,
       title: 'القيم',
-      description: 'الجودة، الإبداع، الشفافية، والالتزام بتحقيق رضا العملاء'
+      description: aboutContent.values
     }
   ];
 
@@ -30,7 +42,7 @@ const About: React.FC = () => {
     },
     {
       icon: Award,
-      number: '100+',
+      number: `${projects.length}+`,
       title: 'مشروع ناجح',
       description: 'مشاريع تم تنفيذها بنجاح'
     },
@@ -54,11 +66,17 @@ const About: React.FC = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            عن
-            <span className="gradient-text"> معمل الإبداع</span>
+            {aboutContent.title.includes('معمل الإبداع') ? (
+              <>
+                عن
+                <span className="gradient-text"> معمل الإبداع</span>
+              </>
+            ) : (
+              <span className="gradient-text">{aboutContent.title}</span>
+            )}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            نحن فريق من المبدعين والمبتكرين، نعمل على تقديم حلول تقنية متطورة تساعد الشركات على النمو والازدهار
+            {aboutContent.description}
           </p>
         </motion.div>
 

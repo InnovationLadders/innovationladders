@@ -11,20 +11,16 @@ import {
   Linkedin,
   ArrowUp
 } from 'lucide-react';
+import { useSupabaseData } from '../hooks/useSupabaseData';
 
 const Footer: React.FC = () => {
+  const { services, siteSettings } = useSupabaseData();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const services = [
-    'حلول Odoo ERP',
-    'أزياء التخرج',
-    'حلول نقاط البيع',
-    'استشارات الابتكار',
-    'برامج ريادة الأعمال',
-    'التجارة الإلكترونية'
-  ];
+  const activeServices = services.filter(service => service.is_active);
 
   const quickLinks = [
     { name: 'الرئيسية', href: '#home' },
@@ -40,6 +36,18 @@ const Footer: React.FC = () => {
     { icon: Instagram, href: '#', color: 'hover:text-pink-600' },
     { icon: Linkedin, href: '#', color: 'hover:text-blue-700' }
   ];
+
+  // Get contact info from settings
+  const contactInfo = siteSettings.contact_info || {
+    phone: ['+966 12 345 6789'],
+    email: ['info@innovationladders.com'],
+    address: ['جدة، المملكة العربية السعودية']
+  };
+
+  const siteInfo = siteSettings.site_info || {
+    siteName: 'معمل الإبداع - Innovation Ladders',
+    siteDescription: 'شريكك في التحول الرقمي والابتكار'
+  };
 
   return (
     <footer className="bg-gray-900 text-white relative">
@@ -64,7 +72,7 @@ const Footer: React.FC = () => {
                 </div>
               </div>
               <p className="text-gray-300 mb-6 leading-relaxed">
-                نحن شريكك في التحول الرقمي والابتكار. نقدم حلولاً تقنية متطورة تساعد الشركات على النمو والازدهار في العصر الرقمي.
+                {siteInfo.siteDescription}. نقدم حلولاً تقنية متطورة تساعد الشركات على النمو والازدهار في العصر الرقمي.
               </p>
               <div className="flex space-x-4 space-x-reverse">
                 {socialLinks.map((social, index) => (
@@ -90,13 +98,13 @@ const Footer: React.FC = () => {
             >
               <h4 className="text-lg font-bold mb-6">خدماتنا</h4>
               <ul className="space-y-3">
-                {services.map((service, index) => (
+                {activeServices.map((service, index) => (
                   <li key={index}>
                     <a
                       href="#services"
                       className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 inline-block"
                     >
-                      {service}
+                      {service.title}
                     </a>
                   </li>
                 ))}
@@ -137,22 +145,31 @@ const Footer: React.FC = () => {
                 <div className="flex items-start space-x-3 space-x-reverse">
                   <MapPin className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-gray-300">جدة، المملكة العربية السعودية</p>
-                    <p className="text-gray-400 text-sm">حي الروضة، شارع الأمير سلطان</p>
+                    {contactInfo.address.map((addr, idx) => (
+                      <p key={idx} className={idx === 0 ? "text-gray-300" : "text-gray-400 text-sm"}>
+                        {addr}
+                      </p>
+                    ))}
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 space-x-reverse">
                   <Phone className="w-5 h-5 text-primary-400 flex-shrink-0" />
                   <div>
-                    <p className="text-gray-300">+966 12 345 6789</p>
-                    <p className="text-gray-400 text-sm">+966 50 123 4567</p>
+                    {contactInfo.phone.map((phone, idx) => (
+                      <p key={idx} className={idx === 0 ? "text-gray-300" : "text-gray-400 text-sm"}>
+                        {phone}
+                      </p>
+                    ))}
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 space-x-reverse">
                   <Mail className="w-5 h-5 text-primary-400 flex-shrink-0" />
                   <div>
-                    <p className="text-gray-300">info@innovationladders.com</p>
-                    <p className="text-gray-400 text-sm">support@innovationladders.com</p>
+                    {contactInfo.email.map((email, idx) => (
+                      <p key={idx} className={idx === 0 ? "text-gray-300" : "text-gray-400 text-sm"}>
+                        {email}
+                      </p>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -172,7 +189,7 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              © 2024 معمل الإبداع - Innovation Ladders. جميع الحقوق محفوظة.
+              © 2024 {siteInfo.siteName}. جميع الحقوق محفوظة.
             </motion.p>
             <motion.div
               className="flex items-center space-x-6 space-x-reverse text-sm text-gray-400"
