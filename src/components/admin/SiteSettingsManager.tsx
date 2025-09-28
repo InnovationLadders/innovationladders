@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Save, 
@@ -17,11 +18,68 @@ import {
 } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
 
+// Default site settings structure
+const defaultSiteSettings = {
+  siteName: '',
+  siteDescription: '',
+  contactInfo: {
+    phone: [''],
+    email: [''],
+    address: [''],
+    workingHours: ['']
+  },
+  socialLinks: {
+    facebook: '',
+    twitter: '',
+    instagram: '',
+    linkedin: ''
+  },
+  heroSection: {
+    title: '',
+    subtitle: '',
+    description: ''
+  },
+  aboutSection: {
+    title: '',
+    description: '',
+    mission: '',
+    vision: '',
+    values: ''
+  }
+};
+
 const SiteSettingsManager: React.FC = () => {
   const { siteSettings, updateSiteSettings } = useAdmin();
   const [activeTab, setActiveTab] = useState<'general' | 'contact' | 'social' | 'content'>('general');
-  const [formData, setFormData] = useState(siteSettings);
+  const [formData, setFormData] = useState(() => ({
+    ...defaultSiteSettings,
+    ...siteSettings
+  }));
   const [isSaving, setIsSaving] = useState(false);
+
+  // Update formData when siteSettings changes
+  useEffect(() => {
+    setFormData(prev => ({
+      ...defaultSiteSettings,
+      ...siteSettings,
+      contactInfo: {
+        ...defaultSiteSettings.contactInfo,
+        ...siteSettings.contactInfo
+      },
+      socialLinks: {
+        ...defaultSiteSettings.socialLinks,
+        ...siteSettings.socialLinks
+      },
+      heroSection: {
+        ...defaultSiteSettings.heroSection,
+        ...siteSettings.heroSection
+      },
+      aboutSection: {
+        ...defaultSiteSettings.aboutSection,
+        ...siteSettings.aboutSection
+      }
+    }));
+  }, [siteSettings]);
 
   const tabs = [
     { id: 'general', name: 'الإعدادات العامة', icon: Globe },
