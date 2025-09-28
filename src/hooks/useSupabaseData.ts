@@ -87,7 +87,7 @@ export const useSupabaseData = () => {
   // Services operations
   const addService = async (service: Omit<DatabaseService, 'id' | 'created_at' | 'updated_at'>) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('services')
         .insert([service])
         .select()
@@ -105,7 +105,7 @@ export const useSupabaseData = () => {
 
   const updateService = async (id: string, updates: Partial<DatabaseService>) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('services')
         .update(updates)
         .eq('id', id)
@@ -126,7 +126,7 @@ export const useSupabaseData = () => {
 
   const deleteService = async (id: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await supabaseAdmin
         .from('services')
         .delete()
         .eq('id', id);
@@ -143,7 +143,7 @@ export const useSupabaseData = () => {
   // Projects operations
   const addProject = async (project: Omit<DatabaseProject, 'id' | 'created_at' | 'updated_at'>) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('projects')
         .insert([project])
         .select()
@@ -161,7 +161,7 @@ export const useSupabaseData = () => {
 
   const updateProject = async (id: string, updates: Partial<DatabaseProject>) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('projects')
         .update(updates)
         .eq('id', id)
@@ -182,7 +182,7 @@ export const useSupabaseData = () => {
 
   const deleteProject = async (id: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await supabaseAdmin
         .from('projects')
         .delete()
         .eq('id', id);
@@ -199,7 +199,7 @@ export const useSupabaseData = () => {
   // Messages operations
   const addMessage = async (message: Omit<DatabaseContactMessage, 'id' | 'created_at' | 'updated_at'>) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('contact_messages')
         .insert([message])
         .select()
@@ -217,7 +217,7 @@ export const useSupabaseData = () => {
 
   const updateMessage = async (id: string, updates: Partial<DatabaseContactMessage>) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('contact_messages')
         .update(updates)
         .eq('id', id)
@@ -238,7 +238,7 @@ export const useSupabaseData = () => {
 
   const deleteMessage = async (id: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await supabaseAdmin
         .from('contact_messages')
         .delete()
         .eq('id', id);
