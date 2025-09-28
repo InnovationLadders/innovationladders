@@ -17,8 +17,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 if (!supabaseServiceKey) {
-  console.error('VITE_SUPABASE_SERVICE_ROLE_KEY is not set. Admin operations will fail.');
-  console.error('Please add your Supabase Service Role Key to the .env file as VITE_SUPABASE_SERVICE_ROLE_KEY');
+  console.warn('VITE_SUPABASE_SERVICE_ROLE_KEY is not set. Admin operations will be limited.');
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
