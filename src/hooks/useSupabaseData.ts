@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase, supabaseAdmin } from '../lib/supabase';
 import type { DatabaseService, DatabaseProject, DatabaseContactMessage, DatabaseSiteSettings } from '../lib/supabase';
 
 export const useSupabaseData = () => {
@@ -236,7 +236,7 @@ export const useSupabaseData = () => {
   // Site settings operations
   const updateSiteSettings = async (key: string, value: any) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('site_settings')
         .upsert({ key, value })
         .select()
