@@ -87,6 +87,10 @@ export const useSupabaseData = () => {
   // Services operations
   const addService = async (service: Omit<DatabaseService, 'id' | 'created_at' | 'updated_at'>) => {
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Service Role Key is required for admin operations. Please set VITE_SUPABASE_SERVICE_ROLE_KEY in your .env file.');
+      }
+      
       const { data, error } = await supabaseAdmin
         .from('services')
         .insert([service])
@@ -105,6 +109,10 @@ export const useSupabaseData = () => {
 
   const updateService = async (id: string, updates: Partial<DatabaseService>) => {
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Service Role Key is required for admin operations. Please set VITE_SUPABASE_SERVICE_ROLE_KEY in your .env file.');
+      }
+      
       const { data, error } = await supabaseAdmin
         .from('services')
         .update(updates)
@@ -126,6 +134,10 @@ export const useSupabaseData = () => {
 
   const deleteService = async (id: string) => {
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Service Role Key is required for admin operations. Please set VITE_SUPABASE_SERVICE_ROLE_KEY in your .env file.');
+      }
+      
       const { error } = await supabaseAdmin
         .from('services')
         .delete()
@@ -143,6 +155,10 @@ export const useSupabaseData = () => {
   // Projects operations
   const addProject = async (project: Omit<DatabaseProject, 'id' | 'created_at' | 'updated_at'>) => {
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Service Role Key is required for admin operations. Please set VITE_SUPABASE_SERVICE_ROLE_KEY in your .env file.');
+      }
+      
       const { data, error } = await supabaseAdmin
         .from('projects')
         .insert([project])
@@ -161,6 +177,10 @@ export const useSupabaseData = () => {
 
   const updateProject = async (id: string, updates: Partial<DatabaseProject>) => {
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Service Role Key is required for admin operations. Please set VITE_SUPABASE_SERVICE_ROLE_KEY in your .env file.');
+      }
+      
       const { data, error } = await supabaseAdmin
         .from('projects')
         .update(updates)
@@ -182,6 +202,10 @@ export const useSupabaseData = () => {
 
   const deleteProject = async (id: string) => {
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Service Role Key is required for admin operations. Please set VITE_SUPABASE_SERVICE_ROLE_KEY in your .env file.');
+      }
+      
       const { error } = await supabaseAdmin
         .from('projects')
         .delete()
@@ -199,6 +223,10 @@ export const useSupabaseData = () => {
   // Messages operations
   const addMessage = async (message: Omit<DatabaseContactMessage, 'id' | 'created_at' | 'updated_at'>) => {
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Service Role Key is required for admin operations. Please set VITE_SUPABASE_SERVICE_ROLE_KEY in your .env file.');
+      }
+      
       const { data, error } = await supabaseAdmin
         .from('contact_messages')
         .insert([message])
@@ -217,6 +245,10 @@ export const useSupabaseData = () => {
 
   const updateMessage = async (id: string, updates: Partial<DatabaseContactMessage>) => {
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Service Role Key is required for admin operations. Please set VITE_SUPABASE_SERVICE_ROLE_KEY in your .env file.');
+      }
+      
       const { data, error } = await supabaseAdmin
         .from('contact_messages')
         .update(updates)
@@ -238,6 +270,10 @@ export const useSupabaseData = () => {
 
   const deleteMessage = async (id: string) => {
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Service Role Key is required for admin operations. Please set VITE_SUPABASE_SERVICE_ROLE_KEY in your .env file.');
+      }
+      
       const { error } = await supabaseAdmin
         .from('contact_messages')
         .delete()
@@ -255,6 +291,10 @@ export const useSupabaseData = () => {
   // Site settings operations
   const updateSiteSettings = async (key: string, value: any) => {
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Service Role Key is required for admin operations. Please set VITE_SUPABASE_SERVICE_ROLE_KEY in your .env file.');
+      }
+      
       const { data, error } = await supabaseAdmin
         .from('site_settings')
         .upsert({ key, value }, { onConflict: 'key' })
