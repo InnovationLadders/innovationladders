@@ -32,9 +32,14 @@ const SiteSettingsManager: React.FC = () => {
 
   const handleSave = async () => {
     setIsSaving(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    updateSiteSettings(formData);
+    try {
+      // Update each setting individually
+      for (const [key, value] of Object.entries(formData)) {
+        await updateSiteSettings(key, value);
+      }
+    } catch (error) {
+      console.error('Error saving settings:', error);
+    }
     setIsSaving(false);
   };
 
