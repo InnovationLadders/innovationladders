@@ -10,8 +10,10 @@ import {
   User,
   Building
 } from 'lucide-react';
+import { useSupabaseData } from '../hooks/useSupabaseData';
 
 const Contact: React.FC = () => {
+  const { addMessage, siteSettings, services } = useSupabaseData();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,20 +22,41 @@ const Contact: React.FC = () => {
     service: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      company: '',
-      phone: '',
-      service: '',
-      message: ''
-    });
+    
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    try {
+      await addMessage({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || undefined,
+        phone: formData.phone || undefined,
+        service: formData.service || undefined,
+        message: formData.message,
+        status: 'new'
+      });
+
+      setSubmitMessage('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.');
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        phone: '',
+        service: '',
+        message: ''
+      });
+    } catch (error) {
+      setSubmitMessage('حدث خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى.');
+      console.error('Error submitting form:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -43,40 +66,36 @@ const Contact: React.FC = () => {
     });
   };
 
-  const contactInfo = [
+  // Get contact info from site settings
+  const contactInfo = siteSettings.contact_info ? [
     {
       icon: Phone,
       title: 'اتصل بنا',
-      details: ['+966 12 345 6789', '+966 50 123 4567'],
+      details: siteSettings.contact_info.phone || ['+966 12 345 6789'],
       color: 'from-green-500 to-green-600'
     },
     {
       icon: Mail,
       title: 'راسلنا',
-      details: ['info@innovationladders.com', 'support@innovationladders.com'],
+      details: siteSettings.contact_info.email || ['info@innovationladders.com'],
       color: 'from-blue-500 to-blue-600'
     },
     {
       icon: MapPin,
       title: 'زورنا',
-      details: ['جدة، المملكة العربية السعودية', 'حي الروضة، شارع الأمير سلطان'],
+      details: siteSettings.contact_info.address || ['جدة، المملكة العربية السعودية'],
       color: 'from-red-500 to-red-600'
     },
     {
       icon: Clock,
       title: 'أوقات العمل',
-      details: ['الأحد - الخميس: 9:00 ص - 6:00 م', 'الجمعة - السبت: مغلق'],
+      details: siteSettings.contact_info.workingHours || ['الأحد - الخميس: 9:00 ص - 6:00 م'],
       color: 'from-purple-500 to-purple-600'
     }
-  ];
+  ] : [];
 
-  const services = [
-    'حلول Odoo ERP',
-    'أزياء التخرج',
-    'حلول نقاط البيع',
-    'استشارات الابتكار',
-    'برامج ريادة الأعمال',
-    'التجارة الإلكترونية',
+  const serviceOptions = [
+    ...services.filter(s => s.is_active).map(s => s.title),
     'خدمة أخرى'
   ];
 
@@ -246,7 +265,7 @@ const Contact: React.FC = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                   >
                     <option value="">اختر الخدمة</option>
-                    {services.map((service) => (
+                   {serviceOptions.map((service) => (
                       <option key={service} value={service}>
                         {service}
                       </option>
@@ -271,15 +290,27 @@ const Contact: React.FC = () => {
                   ></textarea>
                 </div>
 
+                {/* Success/Error Message */}
+                {submitMessage && (
+                  <div className={`p-4 rounded-lg ${
+                    submitMessage.includes('بنجاح') 
+                      ? 'bg-green-50 text-green-700 border border-green-200' 
+                      : 'bg-red-50 text-red-700 border border-red-200'
+                  }`}>
+                    {submitMessage}
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
-                  className="w-full btn-primary text-lg py-4"
+                  disabled={isSubmitting}
+                  className="w-full btn-primary text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <Send className="w-5 h-5 inline-block ml-2" />
-                  إرسال الرسالة
+                  {isSubmitting ? 'جاري الإرسال...' : 'إرسال الرسالة'}
                 </motion.button>
               </form>
             </div>

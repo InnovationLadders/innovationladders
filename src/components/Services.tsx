@@ -9,52 +9,35 @@ import {
   Globe,
   ArrowLeft
 } from 'lucide-react';
+import { useSupabaseData } from '../hooks/useSupabaseData';
 
 const Services: React.FC = () => {
-  const services = [
-    {
-      icon: Settings,
-      title: 'حلول Odoo ERP',
-      description: 'نظام إدارة موارد المؤسسات الشامل لتحسين كفاءة العمليات وزيادة الإنتاجية',
-      features: ['إدارة المبيعات', 'إدارة المخزون', 'المحاسبة', 'الموارد البشرية'],
-      color: 'from-blue-500 to-blue-600'
-    },
-    {
-      icon: GraduationCap,
-      title: 'أزياء التخرج',
-      description: 'تصميم وتوريد أزياء التخرج الأكاديمية بأعلى معايير الجودة والأناقة',
-      features: ['تصاميم مخصصة', 'جودة عالية', 'توريد سريع', 'أسعار تنافسية'],
-      color: 'from-purple-500 to-purple-600'
-    },
-    {
-      icon: ShoppingCart,
-      title: 'حلول نقاط البيع',
-      description: 'أنظمة نقاط البيع الذكية والمتطورة لتحسين تجربة العملاء وإدارة المبيعات',
-      features: ['واجهة سهلة', 'تقارير تفصيلية', 'إدارة المخزون', 'دعم متعدد الفروع'],
-      color: 'from-green-500 to-green-600'
-    },
-    {
-      icon: Lightbulb,
-      title: 'استشارات الابتكار',
-      description: 'خدمات استشارية متخصصة لتطوير الأفكار الإبداعية وتحويلها إلى حلول عملية',
-      features: ['تحليل الأفكار', 'دراسة الجدوى', 'خطط التنفيذ', 'متابعة المشاريع'],
-      color: 'from-yellow-500 to-orange-500'
-    },
-    {
-      icon: TrendingUp,
-      title: 'برامج ريادة الأعمال',
-      description: 'برامج تدريبية وتطويرية لرواد الأعمال لبناء مشاريع ناجحة ومستدامة',
-      features: ['ورش تدريبية', 'إرشاد ومتابعة', 'شبكة رواد الأعمال', 'دعم التمويل'],
-      color: 'from-red-500 to-pink-500'
-    },
-    {
-      icon: Globe,
-      title: 'التجارة الإلكترونية',
-      description: 'تطوير متاجر إلكترونية احترافية ومتكاملة مع أنظمة الدفع والشحن',
-      features: ['تصميم متجاوب', 'أنظمة دفع آمنة', 'إدارة الطلبات', 'تحليلات المبيعات'],
-      color: 'from-indigo-500 to-purple-500'
-    }
-  ];
+  const { services, loading } = useSupabaseData();
+
+  // Icon mapping
+  const iconMap: Record<string, React.ComponentType<any>> = {
+    Settings,
+    GraduationCap,
+    ShoppingCart,
+    Lightbulb,
+    TrendingUp,
+    Globe
+  };
+
+  if (loading) {
+    return (
+      <section id="services" className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">جاري تحميل الخدمات...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const activeServices = services.filter(service => service.is_active);
 
   return (
     <section id="services" className="section-padding bg-gray-50">
@@ -78,7 +61,9 @@ const Services: React.FC = () => {
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+          {activeServices.map((service, index) => {
+            const IconComponent = iconMap[service.icon] || Settings;
+            return (
             <motion.div
               key={service.title}
               className="bg-white rounded-2xl p-8 shadow-lg card-hover group"
@@ -89,7 +74,7 @@ const Services: React.FC = () => {
             >
               {/* Icon */}
               <div className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                <service.icon className="w-8 h-8 text-white" />
+                <IconComponent className="w-8 h-8 text-white" />
               </div>
 
               {/* Content */}
@@ -116,7 +101,8 @@ const Services: React.FC = () => {
                 <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
               </button>
             </motion.div>
-          ))}
+          );
+          })}
         </div>
 
         {/* CTA Section */}

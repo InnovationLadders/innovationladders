@@ -1,72 +1,34 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Filter } from 'lucide-react';
+import { useSupabaseData } from '../hooks/useSupabaseData';
 
 const Portfolio: React.FC = () => {
+  const { projects, loading } = useSupabaseData();
   const [activeFilter, setActiveFilter] = useState('الكل');
 
-  const filters = ['الكل', 'تطوير المواقع', 'أنظمة ERP', 'التجارة الإلكترونية', 'تطبيقات الجوال'];
-
-  const projects = [
-    {
-      id: 1,
-      title: 'نظام Odoo ERP ',
-      category: 'أنظمة ERP',
-      description: 'الحل الأمثل لإدارة أعمال منشأتك التعليمية بالكامل نظام الموارد المؤسسية المتكامل (ERP)',
-      image: '/images/portfolio/odoo-erp-system.webp',
-      tags: ['Odoo', 'POS', 'إدارة المخزون'],
-      link: '#'
-    },
-    {
-      id: 2,
-      title: 'متجر زيارات',
-      category: 'التجارة الإلكترونية',
-      description: 'متجر إلكتروني متكامل متخصص لمنتجات وهدايا الزيارات ',
-      image: '/images/portfolio/ziarat-store.webp',
-      tags: ['React', 'E-commerce', 'Payment Gateway'],
-      link: '#'
-    },
-    {
-      id: 3,
-      title: 'تطبيق TryHub',
-      category: 'تطبيقات الجوال',
-      description: 'تطبيق تواصل اجتماعي لمشاركة التجارب الشخصية الناجحة',
-      image: '/images/portfolio/tryhub-app.webp',
-      tags: ['React Native', 'GPS', 'Real-time'],
-      link: '#'
-    },
-    {
-      id: 4,
-      title: 'موقع شركة استشارات',
-      category: 'تطوير المواقع',
-      description: 'موقع إلكتروني احترافي لشركة استشارات مع نظام إدارة المحتوى',
-      image: '/images/portfolio/consulting-website.webp',
-      tags: ['WordPress', 'SEO', 'Responsive'],
-      link: '#'
-    },
-    {
-      id: 5,
-      title: 'نظام إدارة المدارس',
-      category: 'أنظمة ERP',
-      description: 'نظام شامل لإدارة المدارس والطلاب والمعلمين والمناهج',
-      image: '/images/portfolio/school-management-system.webp',
-      tags: ['Odoo', 'Education', 'Management'],
-      link: '#'
-    },
-    {
-      id: 6,
-      title: 'منصة مشروعي لإدارة المشاريع الطلابية',
-      category: 'تطوير المواقع',
-      description: 'منصة لادارة المشاريع الطلابية وتعزيز التعلم القائم على المشاريع ',
-      image: '/images/portfolio/mashrooi-platform.webp',
-      tags: ['React', 'LMS', 'Interactive'],
-      link: '#'
-    }
-  ];
+  const activeProjects = projects.filter(project => project.is_active);
+  
+  // Get unique categories
+  const categories = Array.from(new Set(activeProjects.map(project => project.category)));
+  const filters = ['الكل', ...categories];
 
   const filteredProjects = activeFilter === 'الكل' 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
+    ? activeProjects 
+    : activeProjects.filter(project => project.category === activeFilter);
+
+  if (loading) {
+    return (
+      <section id="portfolio" className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">جاري تحميل المشاريع...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="portfolio" className="section-padding bg-gray-50">
@@ -107,7 +69,7 @@ const Portfolio: React.FC = () => {
               }`}
             >
               <Filter className="w-4 h-4 inline-block ml-2" />
-              {filter}
+              {filter} ({filter === 'الكل' ? activeProjects.length : activeProjects.filter(p => p.category === filter).length})
             </button>
           ))}
         </motion.div>
