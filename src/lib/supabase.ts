@@ -17,7 +17,8 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 if (!supabaseServiceKey) {
-  console.warn('VITE_SUPABASE_SERVICE_ROLE_KEY is not set. Admin operations may fail.');
+  console.error('VITE_SUPABASE_SERVICE_ROLE_KEY is not set. Admin operations will fail.');
+  console.error('Please add your Supabase Service Role Key to the .env file as VITE_SUPABASE_SERVICE_ROLE_KEY');
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
@@ -45,13 +46,7 @@ export const supabaseAdmin = supabaseServiceKey
         }
       }
     })
-  : createClient(supabaseUrl, supabaseAnonKey, {
-      global: {
-        headers: {
-          'X-Client-Info': 'innovation-ladders-fallback'
-        }
-      }
-    });
+  : null; // Don't create fallback client to make the error obvious
 // Types for database tables
 export interface DatabaseService {
   id: string;
