@@ -77,6 +77,22 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
     
+    // Check demo credentials first
+    if (email === 'mansour@innovationladders.com' && password === 'IL!ke123') {
+      const user: User = {
+        id: '1',
+        name: 'منصور الشهري',
+        email: 'mansour@innovationladders.com',
+        role: 'admin',
+        lastLogin: new Date().toISOString(),
+        isActive: true
+      };
+      setCurrentUser(user);
+      setIsAuthenticated(true);
+      setIsLoading(false);
+      return true;
+    }
+
     try {
       // Use Supabase auth for admin login
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -85,21 +101,6 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       });
 
       if (error) {
-        // Fallback to mock authentication for demo
-        if (email === 'mansour@innovationladders.com' && password === 'IL!ke123') {
-          const user: User = {
-            id: '1',
-            name: 'منصور الشهري',
-            email: 'mansour@innovationladders.com',
-            role: 'admin',
-            lastLogin: new Date().toISOString(),
-            isActive: true
-          };
-          setCurrentUser(user);
-          setIsAuthenticated(true);
-          setIsLoading(false);
-          return true;
-        }
         setIsLoading(false);
         return false;
       }
@@ -120,22 +121,6 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
     } catch (err) {
       console.error('Login error:', err);
-    }
-    
-    // Fallback authentication
-    if (email === 'mansour@innovationladders.com' && password === 'IL!ke123') {
-      const user: User = {
-        id: '1',
-        name: 'منصور الشهري',
-        email: 'mansour@innovationladders.com',
-        role: 'admin',
-        lastLogin: new Date().toISOString(),
-        isActive: true
-      };
-      setCurrentUser(user);
-      setIsAuthenticated(true);
-      setIsLoading(false);
-      return true;
     }
     
     setIsLoading(false);
