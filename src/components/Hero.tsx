@@ -4,7 +4,7 @@ import { ArrowLeft, Users, Award, Zap, TrendingUp } from 'lucide-react';
 import { useSupabaseData } from '../hooks/useSupabaseData';
 
 const Hero: React.FC = () => {
-  const { siteSettings, projects, services, loading } = useSupabaseData();
+  const { siteSettings, projects, error } = useSupabaseData();
 
   const stats = [
     { icon: Users, number: '500+', label: 'عميل راضٍ' },
@@ -20,15 +20,8 @@ const Hero: React.FC = () => {
     description: 'شريكك في التحول الرقمي وحلول الأعمال المبتكرة'
   };
 
-  if (loading) {
-    return (
-      <section id="home" className="relative min-h-screen flex items-center gradient-bg overflow-hidden">
-        <div className="container-custom relative z-10 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
-          <p className="mt-4 text-white">جاري تحميل المحتوى...</p>
-        </div>
-      </section>
-    );
+  if (error) {
+    console.error('Hero error:', error);
   }
 
   return (
@@ -55,7 +48,7 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              {heroContent.title.split('\n').map((line, index) => (
+              {heroContent.title.split('\n').map((line: string, index: number) => (
                 <span key={index} className={index > 0 ? "block text-yellow-300" : ""}>
                   {line}
                 </span>
@@ -69,7 +62,7 @@ const Hero: React.FC = () => {
               transition={{ delay: 0.4, duration: 0.8 }}
             >
               {heroContent.subtitle && <><strong>{heroContent.subtitle}</strong><br /></>}
-              {heroContent.description.split('\n').map((line, index) => (
+              {heroContent.description.split('\n').map((line: string, index: number) => (
                 <span key={index}>
                   {line}
                   {index < heroContent.description.split('\n').length - 1 && <br />}

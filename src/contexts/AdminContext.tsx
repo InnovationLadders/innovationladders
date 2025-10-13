@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { User, AdminStats } from '../types/admin';
 import { useSupabaseData } from '../hooks/useSupabaseData';
 import { supabase } from '../lib/supabase';
@@ -94,6 +94,10 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
 
     try {
+      if (!supabase) {
+        setIsLoading(false);
+        return false;
+      }
       // Use Supabase auth for admin login
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -128,7 +132,9 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const logout = () => {
-    supabase.auth.signOut();
+    if (supabase) {
+      supabase.auth.signOut();
+    }
     setCurrentUser(null);
     setIsAuthenticated(false);
   };

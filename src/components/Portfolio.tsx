@@ -4,17 +4,16 @@ import { ExternalLink, Filter } from 'lucide-react';
 import { useSupabaseData } from '../hooks/useSupabaseData';
 
 const Portfolio: React.FC = () => {
-  const { projects, loading } = useSupabaseData();
+  const { projects, loading, error } = useSupabaseData();
   const [activeFilter, setActiveFilter] = useState('الكل');
 
   const activeProjects = projects.filter(project => project.is_active);
-  
-  // Get unique categories
+
   const categories = Array.from(new Set(activeProjects.map(project => project.category)));
   const filters = ['الكل', ...categories];
 
-  const filteredProjects = activeFilter === 'الكل' 
-    ? activeProjects 
+  const filteredProjects = activeFilter === 'الكل'
+    ? activeProjects
     : activeProjects.filter(project => project.category === activeFilter);
 
   if (loading) {
@@ -24,6 +23,22 @@ const Portfolio: React.FC = () => {
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">جاري تحميل المشاريع...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    console.error('Portfolio error:', error);
+  }
+
+  if (activeProjects.length === 0) {
+    return (
+      <section id="portfolio" className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="text-center">
+            <p className="text-gray-600">لا توجد مشاريع متاحة حالياً</p>
           </div>
         </div>
       </section>

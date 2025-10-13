@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase, supabaseAdmin } from '../lib/supabase';
-import type { DatabaseService, DatabaseProject, DatabaseContactMessage, DatabaseSiteSettings } from '../lib/supabase';
+import type { DatabaseService, DatabaseProject, DatabaseContactMessage } from '../lib/supabase';
 
 export const useSupabaseData = () => {
   const [services, setServices] = useState<DatabaseService[]>([]);
@@ -12,20 +12,16 @@ export const useSupabaseData = () => {
 
   // Fetch all data
   const fetchData = async () => {
+    if (!supabase) {
+      console.error('Supabase client not initialized');
+      setError('Database connection not available');
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
-
-      // Test connection first
-      const { data: testData, error: testError } = await supabase
-        .from('services')
-        .select('count')
-        .limit(1);
-
-      if (testError) {
-        console.error('Supabase connection test failed:', testError);
-        throw new Error(`Connection failed: ${testError.message}`);
-      }
 
       // Fetch services
       const { data: servicesData, error: servicesError } = await supabase
@@ -73,12 +69,7 @@ export const useSupabaseData = () => {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'حدث خطأ في تحميل البيانات';
       console.error('Error fetching data:', err);
-      console.error('Error details:', {
-        message: errorMessage,
-        supabaseUrl: import.meta.env.VITE_SUPABASE_URL,
-        hasAnonKey: !!import.meta.env.VITE_SUPABASE_ANON_KEY
-      });
-      setError(`خطأ في الاتصال بقاعدة البيانات: ${errorMessage}`);
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -314,7 +305,8 @@ export const useSupabaseData = () => {
   useEffect(() => {
     fetchData();
 
-    // Set up real-time subscriptions
+    if (!supabase) return;
+
     const servicesSubscription = supabase
       .channel('services_changes')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'services' }, () => {

@@ -150,7 +150,7 @@ const MessagesManager: React.FC = () => {
                   <p className="text-sm text-gray-500 line-clamp-2">{message.message}</p>
                   <div className="flex items-center justify-between mt-3">
                     <span className="text-xs text-gray-400">
-                      {new Date(message.createdAt).toLocaleDateString('ar-SA')}
+                      {new Date(message.created_at).toLocaleDateString('ar-SA')}
                     </span>
                     {message.service && (
                       <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
@@ -195,7 +195,7 @@ const MessagesManager: React.FC = () => {
                     )}
                     <div className="flex items-center space-x-2 space-x-reverse">
                       <Calendar className="w-4 h-4" />
-                      <span>{new Date(selectedMessage.createdAt).toLocaleString('ar-SA')}</span>
+                      <span>{new Date(selectedMessage.created_at).toLocaleString('ar-SA')}</span>
                     </div>
                   </div>
                 </div>

@@ -12,9 +12,8 @@ import {
 import { useSupabaseData } from '../hooks/useSupabaseData';
 
 const Services: React.FC = () => {
-  const { services, loading } = useSupabaseData();
+  const { services, loading, error } = useSupabaseData();
 
-  // Icon mapping
   const iconMap: Record<string, React.ComponentType<any>> = {
     Settings,
     GraduationCap,
@@ -37,7 +36,23 @@ const Services: React.FC = () => {
     );
   }
 
+  if (error) {
+    console.error('Services error:', error);
+  }
+
   const activeServices = services.filter(service => service.is_active);
+
+  if (activeServices.length === 0) {
+    return (
+      <section id="services" className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="text-center">
+            <p className="text-gray-600">لا توجد خدمات متاحة حالياً</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="services" className="section-padding bg-gray-50">

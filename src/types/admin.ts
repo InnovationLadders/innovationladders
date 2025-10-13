@@ -39,7 +39,7 @@ export interface ContactMessage {
   service?: string;
   message: string;
   status: 'new' | 'read' | 'replied' | 'archived';
-  createdAt: string;
+  created_at: string;
 }
 
 export interface SiteSettings {

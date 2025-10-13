@@ -4,23 +4,15 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabaseServiceKey = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY;
 
-console.log('Supabase URL:', supabaseUrl);
-console.log('Supabase Anon Key exists:', !!supabaseAnonKey);
-console.log('Supabase Service Key exists:', !!supabaseServiceKey);
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing Supabase environment variables:', {
-    url: !!supabaseUrl,
-    anonKey: !!supabaseAnonKey
-  });
-  throw new Error('Missing Supabase environment variables. Please check your .env file.');
-}
-
 if (!supabaseServiceKey) {
   console.warn('VITE_SUPABASE_SERVICE_ROLE_KEY is not set. Admin operations will be limited.');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Missing Supabase environment variables');
+}
+
+export const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     persistSession: true,
     autoRefreshToken: true
@@ -30,10 +22,9 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
       'X-Client-Info': 'innovation-ladders-website'
     }
   }
-});
+}) : null;
 
-// Admin client with service role key to bypass RLS
-export const supabaseAdmin = supabaseServiceKey 
+export const supabaseAdmin = supabaseUrl && supabaseServiceKey
   ? createClient(supabaseUrl, supabaseServiceKey, {
       auth: {
         autoRefreshToken: false,
@@ -45,7 +36,7 @@ export const supabaseAdmin = supabaseServiceKey
         }
       }
     })
-  : null; // Don't create fallback client to make the error obvious
+  : null;
 // Types for database tables
 export interface DatabaseService {
   id: string;

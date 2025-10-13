@@ -113,7 +113,7 @@ const AdminStats: React.FC = () => {
                   <p className="text-sm font-medium text-gray-900">{message.name}</p>
                   <p className="text-xs text-gray-500 truncate">{message.message}</p>
                   <p className="text-xs text-gray-400 mt-1">
-                    {new Date(message.createdAt).toLocaleDateString('ar-SA')}
+                    {new Date(message.created_at).toLocaleDateString('ar-SA')}
                   </p>
                 </div>
                 <span className={`px-2 py-1 text-xs rounded-full ${
@@ -160,11 +160,11 @@ const AdminStats: React.FC = () => {
                   </div>
                 </div>
                 <span className={`px-2 py-1 text-xs rounded-full ${
-                  project.isActive 
-                    ? 'bg-green-100 text-green-600' 
+                  project.is_active
+                    ? 'bg-green-100 text-green-600'
                     : 'bg-gray-100 text-gray-600'
                 }`}>
-                  {project.isActive ? 'نشط' : 'غير نشط'}
+                  {project.is_active ? 'نشط' : 'غير نشط'}
                 </span>
               </div>
             ))}
