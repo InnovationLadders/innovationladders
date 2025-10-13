@@ -26,7 +26,7 @@ INSERT INTO site_settings (key, value) VALUES
   ('contact_info', '{
     "phone": ["+966 55 434 4899", "+966 55 434 4899"],
     "email": ["mansour@innovationladders.com", "sales@innovationladders.com"],
-    "address": ["جدة، المملكة العربية السعودية", "حي الروضة، شارع التحلية"],
+    "address": ["جدة، المملكة العربية السعودية", "حي الشاطئ، برج الهبدكوارتر"],
     "workingHours": ["الأحد - الخميس: 9:00 ص - 6:00 م", "السبت: 10:00 ص - 2:00 م"]
   }'),
   ('social_links', '{
