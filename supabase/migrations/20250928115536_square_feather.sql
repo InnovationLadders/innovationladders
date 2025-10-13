@@ -24,8 +24,8 @@ INSERT INTO site_settings (key, value) VALUES
     "siteDescription": "شريكك في التحول الرقمي والابتكار"
   }'),
   ('contact_info', '{
-    "phone": ["+966 12 345 6789", "+966 50 123 4567"],
-    "email": ["info@innovationladders.com", "support@innovationladders.com"],
+    "phone": ["+966 55 434 4899", "+966 55 434 4899"],
+    "email": ["mansour@innovationladders.com", "sales@innovationladders.com"],
     "address": ["جدة، المملكة العربية السعودية", "حي الروضة، شارع التحلية"],
     "workingHours": ["الأحد - الخميس: 9:00 ص - 6:00 م", "السبت: 10:00 ص - 2:00 م"]
   }'),
@@ -38,7 +38,7 @@ INSERT INTO site_settings (key, value) VALUES
   ('hero_section', '{
     "title": "نحن نصنع الإبداع والابتكار",
     "subtitle": "معمل الإبداع بجدة",
-    "description": "شريكك في التحول الرقمي وحلول الأعمال المبتكرة نقدم حلولاً تقنية متطورة تساعد الشركات على النمو والازدهار"
+    "description": "شريكك في التحول الرقمي وحلول الأعمال المبتكرةنقدم حلولاً تقنية متطورة تساعد الشركات على النمو والازدهار"
   }'),
   ('about_section', '{
     "title": "عن معمل الإبداع",
