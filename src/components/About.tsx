@@ -8,7 +8,7 @@ const About: React.FC = () => {
 
   // Get about content from settings or use defaults
   const aboutContent = siteSettings.aboutSection || siteSettings.about_section || {
-    title: 'عن معمل الإبداع',
+    title: 'عن معمل الابتكار',
     description: 'نحن فريق من المبدعين والمبتكرين، نعمل على تقديم حلول تقنية متطورة',
     mission: 'نسعى لتكون الشريك الأول في التحول الرقمي والابتكار',
     vision: 'أن نكون رواد الإبداع والابتكار في المملكة العربية السعودية',
@@ -77,7 +77,7 @@ const About: React.FC = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {aboutContent.title.includes('معمل الإبداع') ? (
+            {aboutContent.title.includes('معمل الابتكار') ? (
               <>
                 عن
                 <span className="gradient-text"> معمل الإبداع</span>
