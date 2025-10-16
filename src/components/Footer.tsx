@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
   };
 
   const siteInfo = {
-    siteName: siteSettings.siteName || 'معمل الإبداع - Innovation Ladders',
+    siteName: siteSettings.siteName || 'معمل الابتكار - Innovation Ladders',
     siteDescription: siteSettings.siteDescription || 'شريكك في التحول الرقمي والابتكار'
   };
 
