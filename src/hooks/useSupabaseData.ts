@@ -22,37 +22,58 @@ export const useSupabaseData = () => {
     try {
       setLoading(true);
       setError(null);
+      console.log('Starting data fetch from Supabase...');
 
       // Fetch services
+      console.log('Fetching services...');
       const { data: servicesData, error: servicesError } = await supabase
         .from('services')
         .select('*')
         .order('order_index');
 
-      if (servicesError) throw servicesError;
+      if (servicesError) {
+        console.error('Services fetch error:', servicesError);
+        throw servicesError;
+      }
+      console.log('Services loaded:', servicesData?.length || 0, 'items');
 
       // Fetch projects
+      console.log('Fetching projects...');
       const { data: projectsData, error: projectsError } = await supabase
         .from('projects')
         .select('*')
         .order('order_index');
 
-      if (projectsError) throw projectsError;
+      if (projectsError) {
+        console.error('Projects fetch error:', projectsError);
+        throw projectsError;
+      }
+      console.log('Projects loaded:', projectsData?.length || 0, 'items');
 
       // Fetch messages
+      console.log('Fetching contact messages...');
       const { data: messagesData, error: messagesError } = await supabase
         .from('contact_messages')
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (messagesError) throw messagesError;
+      if (messagesError) {
+        console.error('Messages fetch error:', messagesError);
+        throw messagesError;
+      }
+      console.log('Messages loaded:', messagesData?.length || 0, 'items');
 
       // Fetch site settings
+      console.log('Fetching site settings...');
       const { data: settingsData, error: settingsError } = await supabase
         .from('site_settings')
         .select('*');
 
-      if (settingsError) throw settingsError;
+      if (settingsError) {
+        console.error('Settings fetch error:', settingsError);
+        throw settingsError;
+      }
+      console.log('Settings loaded:', settingsData?.length || 0, 'items');
 
       // Transform settings into object
       const settingsObject = settingsData?.reduce((acc, setting) => {
@@ -60,7 +81,12 @@ export const useSupabaseData = () => {
         return acc;
       }, {} as Record<string, any>) || {};
 
-      console.log('Loaded site settings:', settingsObject);
+      console.log('All data loaded successfully!', {
+        services: servicesData?.length,
+        projects: projectsData?.length,
+        messages: messagesData?.length,
+        settings: Object.keys(settingsObject).length
+      });
 
       setServices(servicesData || []);
       setProjects(projectsData || []);
@@ -69,6 +95,7 @@ export const useSupabaseData = () => {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'حدث خطأ في تحميل البيانات';
       console.error('Error fetching data:', err);
+      console.error('Error details:', JSON.stringify(err, null, 2));
       setError(errorMessage);
     } finally {
       setLoading(false);
