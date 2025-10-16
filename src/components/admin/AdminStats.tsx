@@ -58,7 +58,7 @@ const AdminStats: React.FC = () => {
         className="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl p-8 text-white"
       >
         <h2 className="text-3xl font-bold mb-2">مرحباً بك في لوحة التحكم</h2>
-        <p className="text-primary-100">إدارة شاملة لموقع معمل الإبداع</p>
+        <p className="text-primary-100">إدارة شاملة لموقع معمل الابتكار</p>
         <div className="flex items-center mt-4 text-primary-100">
           <Calendar className="w-4 h-4 ml-2" />
           <span>{new Date().toLocaleDateString('ar-SA', { 
