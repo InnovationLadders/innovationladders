@@ -147,7 +147,7 @@ const About: React.FC = () => {
                   <div className="w-24 h-24 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Zap className="w-12 h-12 text-white" />
                   </div>
-                  <h4 className="text-2xl font-bold text-gray-800 mb-2">معمل الإبداع</h4>
+                  <h4 className="text-2xl font-bold text-gray-800 mb-2">معمل الابتكار</h4>
                   <p className="text-gray-600">Innovation Ladders Jeddah</p>
                 </div>
               </div>
