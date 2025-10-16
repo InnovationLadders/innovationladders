@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, FileEdit as Edit, Trash2, Save, X, Eye, EyeOff, ArrowUp, ArrowDown, ExternalLink, Image as ImageIcon } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
 import { Project } from '../../types/admin';
+import ImageUpload from './ImageUpload';
+import { uploadImage } from '../../lib/imageUpload';
 
 const ProjectsManager: React.FC = () => {
   const { projects, updateProject, deleteProject, addProject } = useAdmin();
@@ -18,6 +20,8 @@ const ProjectsManager: React.FC = () => {
     is_active: true,
     order_index: projects.length + 1
   });
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const categories = [
     'تطوير المواقع',
@@ -28,18 +32,43 @@ const ProjectsManager: React.FC = () => {
     'مواقع تعليمية'
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (editingProject) {
-      updateProject(editingProject.id, formData);
-      setEditingProject(null);
-    } else {
-      addProject(formData as Omit<Project, 'id'>);
-      setShowAddForm(false);
+    setUploading(true);
+
+    try {
+      let imageUrl = formData.image;
+
+      if (selectedImage) {
+        const result = await uploadImage(
+          selectedImage,
+          'project-images',
+          editingProject?.image
+        );
+        imageUrl = result.url;
+      }
+
+      const dataToSubmit = {
+        ...formData,
+        image: imageUrl
+      };
+
+      if (editingProject) {
+        await updateProject(editingProject.id, dataToSubmit);
+        setEditingProject(null);
+      } else {
+        await addProject(dataToSubmit as Omit<Project, 'id'>);
+        setShowAddForm(false);
+      }
+
+      resetForm();
+      setSelectedImage(null);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert(error instanceof Error ? error.message : 'حدث خطأ أثناء حفظ البيانات');
+    } finally {
+      setUploading(false);
     }
-    
-    resetForm();
   };
 
   const resetForm = () => {
@@ -53,6 +82,7 @@ const ProjectsManager: React.FC = () => {
       is_active: true,
       order_index: projects.length + 1
     });
+    setSelectedImage(null);
   };
 
   const handleEdit = (project: Project) => {
@@ -180,33 +210,26 @@ const ProjectsManager: React.FC = () => {
                 />
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-gray-700 font-medium mb-2">رابط الصورة</label>
-                  <div className="flex items-center space-x-3 space-x-reverse">
-                    <input
-                      type="url"
-                      value={formData.image || ''}
-                      onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
-                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="https://example.com/image.jpg"
-                    />
-                    <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                      <ImageIcon className="w-5 h-5 text-gray-400" />
-                    </div>
-                  </div>
-                </div>
+              <ImageUpload
+                currentImage={formData.image}
+                onImageSelect={(file) => setSelectedImage(file)}
+                onImageRemove={() => {
+                  setSelectedImage(null);
+                  setFormData(prev => ({ ...prev, image: '' }));
+                }}
+                label="صورة المشروع"
+                disabled={uploading}
+              />
 
-                <div>
-                  <label className="block text-gray-700 font-medium mb-2">رابط المشروع</label>
-                  <input
-                    type="url"
-                    value={formData.link || ''}
-                    onChange={(e) => setFormData(prev => ({ ...prev, link: e.target.value }))}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder="https://example.com"
-                  />
-                </div>
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">رابط المشروع</label>
+                <input
+                  type="url"
+                  value={formData.link || ''}
+                  onChange={(e) => setFormData(prev => ({ ...prev, link: e.target.value }))}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  placeholder="https://example.com"
+                />
               </div>
 
               <div>
@@ -260,14 +283,16 @@ const ProjectsManager: React.FC = () => {
                 <button
                   type="submit"
                   className="btn-primary flex items-center"
+                  disabled={uploading}
                 >
                   <Save className="w-4 h-4 ml-2" />
-                  {editingProject ? 'حفظ التعديلات' : 'إضافة المشروع'}
+                  {uploading ? 'جاري الحفظ...' : (editingProject ? 'حفظ التعديلات' : 'إضافة المشروع')}
                 </button>
                 <button
                   type="button"
                   onClick={handleCancel}
                   className="btn-secondary"
+                  disabled={uploading}
                 >
                   إلغاء
                 </button>

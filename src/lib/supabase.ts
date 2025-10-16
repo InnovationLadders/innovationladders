@@ -45,6 +45,7 @@ export interface DatabaseService {
   features: string[];
   icon: string;
   color: string;
+  image?: string;
   is_active: boolean;
   order_index: number;
   created_at: string;

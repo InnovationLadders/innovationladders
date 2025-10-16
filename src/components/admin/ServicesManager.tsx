@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, FileEdit as Edit, Trash2, Save, X, Eye, EyeOff, ArrowUp, ArrowDown } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
 import { Service } from '../../types/admin';
+import ImageUpload from './ImageUpload';
+import { uploadImage } from '../../lib/imageUpload';
 
 const ServicesManager: React.FC = () => {
   const { services, updateService, deleteService, addService } = useAdmin();
@@ -14,9 +16,12 @@ const ServicesManager: React.FC = () => {
     features: [''],
     icon: 'Settings',
     color: 'from-blue-500 to-blue-600',
+    image: '',
     is_active: true,
     order_index: services.length + 1
   });
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const iconOptions = [
     'Settings', 'GraduationCap', 'ShoppingCart', 'Lightbulb', 'TrendingUp', 'Globe'
@@ -31,18 +36,43 @@ const ServicesManager: React.FC = () => {
     { name: 'وردي', value: 'from-pink-500 to-pink-600' }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (editingService) {
-      updateService(editingService.id, formData);
-      setEditingService(null);
-    } else {
-      addService(formData as Omit<Service, 'id'>);
-      setShowAddForm(false);
+    setUploading(true);
+
+    try {
+      let imageUrl = formData.image;
+
+      if (selectedImage) {
+        const result = await uploadImage(
+          selectedImage,
+          'service-images',
+          editingService?.image
+        );
+        imageUrl = result.url;
+      }
+
+      const dataToSubmit = {
+        ...formData,
+        image: imageUrl
+      };
+
+      if (editingService) {
+        await updateService(editingService.id, dataToSubmit);
+        setEditingService(null);
+      } else {
+        await addService(dataToSubmit as Omit<Service, 'id'>);
+        setShowAddForm(false);
+      }
+
+      resetForm();
+      setSelectedImage(null);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert(error instanceof Error ? error.message : 'حدث خطأ أثناء حفظ البيانات');
+    } finally {
+      setUploading(false);
     }
-    
-    resetForm();
   };
 
   const resetForm = () => {
@@ -52,9 +82,11 @@ const ServicesManager: React.FC = () => {
       features: [''],
       icon: 'Settings',
       color: 'from-blue-500 to-blue-600',
+      image: '',
       is_active: true,
       order_index: services.length + 1
     });
+    setSelectedImage(null);
   };
 
   const handleEdit = (service: Service) => {
@@ -180,6 +212,17 @@ const ServicesManager: React.FC = () => {
                 />
               </div>
 
+              <ImageUpload
+                currentImage={formData.image}
+                onImageSelect={(file) => setSelectedImage(file)}
+                onImageRemove={() => {
+                  setSelectedImage(null);
+                  setFormData(prev => ({ ...prev, image: '' }));
+                }}
+                label="صورة الخدمة (اختياري)"
+                disabled={uploading}
+              />
+
               <div>
                 <label className="block text-gray-700 font-medium mb-2">اللون</label>
                 <div className="grid grid-cols-3 gap-3">
@@ -252,14 +295,16 @@ const ServicesManager: React.FC = () => {
                 <button
                   type="submit"
                   className="btn-primary flex items-center"
+                  disabled={uploading}
                 >
                   <Save className="w-4 h-4 ml-2" />
-                  {editingService ? 'حفظ التعديلات' : 'إضافة الخدمة'}
+                  {uploading ? 'جاري الحفظ...' : (editingService ? 'حفظ التعديلات' : 'إضافة الخدمة')}
                 </button>
                 <button
                   type="button"
                   onClick={handleCancel}
                   className="btn-secondary"
+                  disabled={uploading}
                 >
                   إلغاء
                 </button>
@@ -283,9 +328,17 @@ const ServicesManager: React.FC = () => {
           >
             <div className="flex items-start justify-between">
               <div className="flex items-start space-x-4 space-x-reverse flex-1">
-                <div className={`w-12 h-12 bg-gradient-to-r ${service.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                  <span className="text-white text-xs">{service.icon}</span>
-                </div>
+                {service.image ? (
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-24 h-24 object-cover rounded-lg flex-shrink-0"
+                  />
+                ) : (
+                  <div className={`w-12 h-12 bg-gradient-to-r ${service.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                    <span className="text-white text-xs">{service.icon}</span>
+                  </div>
+                )}
                 <div className="flex-1">
                   <div className="flex items-center space-x-3 space-x-reverse mb-2">
                     <h3 className="text-lg font-bold text-gray-900">{service.title}</h3>

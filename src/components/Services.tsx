@@ -81,40 +81,52 @@ const Services: React.FC = () => {
             return (
             <motion.div
               key={service.title}
-              className="bg-white rounded-2xl p-8 shadow-lg card-hover group"
+              className="bg-white rounded-2xl overflow-hidden shadow-lg card-hover group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              {/* Icon */}
-              <div className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                <IconComponent className="w-8 h-8 text-white" />
-              </div>
+              {/* Image or Icon */}
+              {service.image ? (
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+              ) : (
+                <div className={`h-32 bg-gradient-to-r ${service.color} flex items-center justify-center group-hover:scale-105 transition-transform duration-300`}>
+                  <IconComponent className="w-16 h-16 text-white" />
+                </div>
+              )}
 
               {/* Content */}
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                {service.description}
-              </p>
+              <div className="p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  {service.description}
+                </p>
 
-              {/* Features */}
-              <ul className="space-y-2 mb-6">
-                {service.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-center text-gray-700">
-                    <div className={`w-2 h-2 bg-gradient-to-r ${service.color} rounded-full ml-3`}></div>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+                {/* Features */}
+                <ul className="space-y-2 mb-6">
+                  {service.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-center text-gray-700">
+                      <div className={`w-2 h-2 bg-gradient-to-r ${service.color} rounded-full ml-3`}></div>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
 
-              {/* CTA */}
-              <button className="flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors group">
-                اعرف المزيد
-                <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
-              </button>
+                {/* CTA */}
+                <button className="flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors group">
+                  اعرف المزيد
+                  <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
             </motion.div>
           );
           })}

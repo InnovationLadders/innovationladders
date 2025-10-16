@@ -14,6 +14,7 @@ export interface Service {
   features: string[];
   icon: string;
   color: string;
+  image?: string;
   is_active: boolean;
   order_index: number;
 }
