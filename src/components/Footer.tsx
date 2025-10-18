@@ -11,11 +11,9 @@ import {
   Linkedin,
   ArrowUp
 } from 'lucide-react';
-import { useSupabaseData } from '../hooks/useSupabaseData';
+import { services, siteSettings } from '../data';
 
 const Footer: React.FC = () => {
-  const { services, siteSettings, loading } = useSupabaseData();
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -37,30 +35,16 @@ const Footer: React.FC = () => {
     { icon: Linkedin, href: '#', color: 'hover:text-blue-700' }
   ];
 
-  // Get contact info from settings
-  const contactInfo = siteSettings.contactInfo || siteSettings.contact_info || {
-    phone: ['+966 12 345 6789'],
-    email: ['info@innovationladders.com'],
+  const contactInfo = {
+    phone: [siteSettings.contactPhone],
+    email: [siteSettings.contactEmail],
     address: ['جدة، المملكة العربية السعودية']
   };
 
   const siteInfo = {
-    siteName: siteSettings.siteName || 'معمل الابتكار - Innovation Ladders',
-    siteDescription: siteSettings.siteDescription || 'شريكك في التحول الرقمي والابتكار'
+    siteName: siteSettings.siteName,
+    siteDescription: siteSettings.siteDescription
   };
-
-  if (loading) {
-    return (
-      <footer className="bg-gray-900 text-white">
-        <div className="section-padding">
-          <div className="container-custom text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto"></div>
-            <p className="mt-4 text-gray-400">جاري تحميل المحتوى...</p>
-          </div>
-        </div>
-      </footer>
-    );
-  }
 
   return (
     <footer className="bg-gray-900 text-white relative">

@@ -1,13 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Target, Eye, Heart, Users, Award, Zap, Lightbulb } from 'lucide-react';
-import { useSupabaseData } from '../hooks/useSupabaseData';
+import { projects } from '../data';
 
 const About: React.FC = () => {
-  const { siteSettings, projects, services, loading } = useSupabaseData();
-
-  // Get about content from settings or use defaults
-  const aboutContent = siteSettings.aboutSection || siteSettings.about_section || {
+  const aboutContent = {
     title: 'عن معمل الابتكار',
     description: 'نحن فريق من المبدعين والمبتكرين، نعمل على تقديم حلول تقنية متطورة',
     mission: 'نسعى لتكون الشريك الأول في التحول الرقمي والابتكار',
@@ -53,17 +50,6 @@ const About: React.FC = () => {
       description: 'في مجال التكنولوجيا والابتكار'
     }
   ];
-
-  if (loading) {
-    return (
-      <section id="about" className="section-padding bg-white">
-        <div className="container-custom text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">جاري تحميل المحتوى...</p>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section id="about" className="section-padding bg-white">

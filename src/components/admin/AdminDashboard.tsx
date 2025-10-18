@@ -1,57 +1,29 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  BarChart3, 
-  Users, 
-  MessageSquare, 
-  Settings, 
-  FileText, 
-  Image,
+import {
+  Users,
+  MessageSquare,
   LogOut,
   Menu,
   X,
-  Home,
-  Briefcase,
-  Mail,
-  Globe
+  Home
 } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
-import AdminStats from './AdminStats';
-import ServicesManager from './ServicesManager';
-import ProjectsManager from './ProjectsManager';
 import MessagesManager from './MessagesManager';
-import SiteSettingsManager from './SiteSettingsManager';
 
-type TabType = 'dashboard' | 'services' | 'projects' | 'messages' | 'settings';
+type TabType = 'messages';
 
 const AdminDashboard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<TabType>('dashboard');
+  const [activeTab, setActiveTab] = useState<TabType>('messages');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { currentUser, logout } = useAdmin();
 
   const tabs = [
-    { id: 'dashboard', name: 'لوحة التحكم', icon: BarChart3 },
-    { id: 'services', name: 'إدارة الخدمات', icon: Briefcase },
-    { id: 'projects', name: 'إدارة المشاريع', icon: FileText },
     { id: 'messages', name: 'الرسائل', icon: MessageSquare },
-    { id: 'settings', name: 'إعدادات الموقع', icon: Settings },
   ];
 
   const renderContent = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return <AdminStats />;
-      case 'services':
-        return <ServicesManager />;
-      case 'projects':
-        return <ProjectsManager />;
-      case 'messages':
-        return <MessagesManager />;
-      case 'settings':
-        return <SiteSettingsManager />;
-      default:
-        return <AdminStats />;
-    }
+    return <MessagesManager />;
   };
 
   return (

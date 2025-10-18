@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Filter } from 'lucide-react';
-import { useSupabaseData } from '../hooks/useSupabaseData';
+import { projects } from '../data';
 
 const Portfolio: React.FC = () => {
-  const { projects, loading, error } = useSupabaseData();
   const [activeFilter, setActiveFilter] = useState('الكل');
 
   const activeProjects = projects.filter(project => project.is_active);
@@ -15,35 +14,6 @@ const Portfolio: React.FC = () => {
   const filteredProjects = activeFilter === 'الكل'
     ? activeProjects
     : activeProjects.filter(project => project.category === activeFilter);
-
-  if (loading) {
-    return (
-      <section id="portfolio" className="section-padding bg-gray-50">
-        <div className="container-custom">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">جاري تحميل المشاريع...</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    console.error('Portfolio error:', error);
-  }
-
-  if (activeProjects.length === 0) {
-    return (
-      <section id="portfolio" className="section-padding bg-gray-50">
-        <div className="container-custom">
-          <div className="text-center">
-            <p className="text-gray-600">لا توجد مشاريع متاحة حالياً</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section id="portfolio" className="section-padding bg-gray-50">

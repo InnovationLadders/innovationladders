@@ -11,9 +11,10 @@ import {
   Building
 } from 'lucide-react';
 import { useSupabaseData } from '../hooks/useSupabaseData';
+import { services as staticServices } from '../data';
 
 const Contact: React.FC = () => {
-  const { addMessage, siteSettings, services } = useSupabaseData();
+  const { addMessage } = useSupabaseData();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -66,36 +67,35 @@ const Contact: React.FC = () => {
     });
   };
 
-  // Get contact info from site settings
-  const contactInfo = (siteSettings.contactInfo || siteSettings.contact_info) ? [
+  const contactInfo = [
     {
       icon: Phone,
       title: 'اتصل بنا',
-      details: (siteSettings.contactInfo || siteSettings.contact_info).phone || ['+966 12 345 6789'],
+      details: ['+966 50 123 4567'],
       color: 'from-green-500 to-green-600'
     },
     {
       icon: Mail,
       title: 'راسلنا',
-      details: (siteSettings.contactInfo || siteSettings.contact_info).email || ['info@innovationladders.com'],
+      details: ['info@innovationladders.com'],
       color: 'from-blue-500 to-blue-600'
     },
     {
       icon: MapPin,
       title: 'زورنا',
-      details: (siteSettings.contactInfo || siteSettings.contact_info).address || ['جدة، المملكة العربية السعودية'],
+      details: ['جدة، المملكة العربية السعودية'],
       color: 'from-red-500 to-red-600'
     },
     {
       icon: Clock,
       title: 'أوقات العمل',
-      details: (siteSettings.contactInfo || siteSettings.contact_info).workingHours || ['الأحد - الخميس: 9:00 ص - 6:00 م'],
+      details: ['الأحد - الخميس: 9:00 ص - 6:00 م'],
       color: 'from-purple-500 to-purple-600'
     }
-  ] : [];
+  ];
 
   const serviceOptions = [
-    ...services.filter(s => s.is_active).map(s => s.title),
+    ...staticServices.filter(s => s.is_active).map(s => s.title),
     'خدمة أخرى'
   ];
 

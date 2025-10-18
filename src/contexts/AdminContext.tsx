@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 import { User, AdminStats } from '../types/admin';
 import { useSupabaseData } from '../hooks/useSupabaseData';
 import { supabase } from '../lib/supabase';
-import type { DatabaseService, DatabaseProject, DatabaseContactMessage } from '../lib/supabase';
+import type { DatabaseContactMessage } from '../lib/supabase';
 
 interface AdminContextType {
   // Authentication
@@ -10,29 +10,16 @@ interface AdminContextType {
   currentUser: User | null;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
-  
+
   // Data
-  services: DatabaseService[];
-  projects: DatabaseProject[];
   messages: DatabaseContactMessage[];
-  siteSettings: any;
   stats: AdminStats;
-  
+
   // Actions
-  updateService: (id: string, service: Partial<DatabaseService>) => Promise<void>;
-  deleteService: (id: string) => void;
-  addService: (service: Omit<DatabaseService, 'id' | 'created_at' | 'updated_at'>) => void;
-  
-  updateProject: (id: string, project: Partial<DatabaseProject>) => Promise<void>;
-  deleteProject: (id: string) => void;
-  addProject: (project: Omit<DatabaseProject, 'id' | 'created_at' | 'updated_at'>) => void;
-  
   updateMessage: (id: string, message: Partial<DatabaseContactMessage>) => Promise<void>;
   deleteMessage: (id: string) => void;
   addMessage: (message: Omit<DatabaseContactMessage, 'id' | 'created_at' | 'updated_at'>) => void;
-  
-  updateSiteSettings: (key: string, value: any) => Promise<void>;
-  
+
   // Loading states
   isLoading: boolean;
   dataLoading: boolean;
@@ -46,29 +33,18 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Use Supabase data hook
   const {
-    services,
-    projects,
     messages,
-    siteSettings,
     loading: dataLoading,
     error,
-    addService: dbAddService,
-    updateService: dbUpdateService,
-    deleteService: dbDeleteService,
-    addProject: dbAddProject,
-    updateProject: dbUpdateProject,
-    deleteProject: dbDeleteProject,
     addMessage: dbAddMessage,
     updateMessage: dbUpdateMessage,
-    deleteMessage: dbDeleteMessage,
-    updateSiteSettings: dbUpdateSiteSettings
+    deleteMessage: dbDeleteMessage
   } = useSupabaseData();
 
   const stats: AdminStats = {
-    totalProjects: projects.length,
-    totalServices: services.length,
+    totalProjects: 0,
+    totalServices: 0,
     totalMessages: messages.length,
     newMessages: messages.filter(m => m.status === 'new').length,
     activeUsers: 1
@@ -139,32 +115,6 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setIsAuthenticated(false);
   };
 
-  // Service management
-  const updateService = async (id: string, serviceUpdate: Partial<DatabaseService>) => {
-    await dbUpdateService(id, serviceUpdate);
-  };
-
-  const deleteService = async (id: string) => {
-    await dbDeleteService(id);
-  };
-
-  const addService = async (service: Omit<DatabaseService, 'id' | 'created_at' | 'updated_at'>) => {
-    await dbAddService(service);
-  };
-
-  // Project management
-  const updateProject = async (id: string, projectUpdate: Partial<DatabaseProject>) => {
-    await dbUpdateProject(id, projectUpdate);
-  };
-
-  const deleteProject = async (id: string) => {
-    await dbDeleteProject(id);
-  };
-
-  const addProject = async (project: Omit<DatabaseProject, 'id' | 'created_at' | 'updated_at'>) => {
-    await dbAddProject(project);
-  };
-
   // Message management
   const updateMessage = async (id: string, messageUpdate: Partial<DatabaseContactMessage>) => {
     await dbUpdateMessage(id, messageUpdate);
@@ -178,31 +128,16 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     await dbAddMessage(message);
   };
 
-  // Site settings
-  const updateSiteSettings = async (key: string, value: any) => {
-    await dbUpdateSiteSettings(key, value);
-  };
-
   const value: AdminContextType = {
     isAuthenticated,
     currentUser,
     login,
     logout,
-    services,
-    projects,
     messages,
-    siteSettings,
     stats,
-    updateService,
-    deleteService,
-    addService,
-    updateProject,
-    deleteProject,
-    addProject,
     addMessage,
     updateMessage,
     deleteMessage,
-    updateSiteSettings,
     isLoading,
     dataLoading,
     error

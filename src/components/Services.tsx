@@ -1,19 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Settings, 
-  GraduationCap, 
-  ShoppingCart, 
-  Lightbulb, 
-  TrendingUp, 
+import {
+  Settings,
+  GraduationCap,
+  ShoppingCart,
+  Lightbulb,
+  TrendingUp,
   Globe,
   ArrowLeft
 } from 'lucide-react';
-import { useSupabaseData } from '../hooks/useSupabaseData';
+import { services } from '../data';
 
 const Services: React.FC = () => {
-  const { services, loading, error } = useSupabaseData();
-
   const iconMap: Record<string, React.ComponentType<any>> = {
     Settings,
     GraduationCap,
@@ -23,36 +21,7 @@ const Services: React.FC = () => {
     Globe
   };
 
-  if (loading) {
-    return (
-      <section id="services" className="section-padding bg-gray-50">
-        <div className="container-custom">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">جاري تحميل الخدمات...</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    console.error('Services error:', error);
-  }
-
   const activeServices = services.filter(service => service.is_active);
-
-  if (activeServices.length === 0) {
-    return (
-      <section id="services" className="section-padding bg-gray-50">
-        <div className="container-custom">
-          <div className="text-center">
-            <p className="text-gray-600">لا توجد خدمات متاحة حالياً</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section id="services" className="section-padding bg-gray-50">

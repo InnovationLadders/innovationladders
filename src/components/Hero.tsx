@@ -1,11 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Users, Award, Zap, TrendingUp } from 'lucide-react';
-import { useSupabaseData } from '../hooks/useSupabaseData';
+import { projects } from '../data';
 
 const Hero: React.FC = () => {
-  const { siteSettings, projects, error } = useSupabaseData();
-
   const stats = [
     { icon: Users, number: '500+', label: 'عميل راضٍ' },
     { icon: Award, number: `${projects.length}+`, label: 'مشروع ناجح' },
@@ -13,16 +11,11 @@ const Hero: React.FC = () => {
     { icon: TrendingUp, number: '95%', label: 'معدل النجاح' },
   ];
 
-  // Get hero content from settings or use defaults
-  const heroContent = siteSettings.heroSection || siteSettings.hero_section || {
+  const heroContent = {
     title: 'نحن نصنع الإبداع والابتكار',
     subtitle: 'معمل الإبداع بجدة',
     description: 'شريكك في التحول الرقمي وحلول الأعمال المبتكرة'
   };
-
-  if (error) {
-    console.error('Hero error:', error);
-  }
 
   return (
     <section id="home" className="relative min-h-screen flex items-center gradient-bg overflow-hidden">
