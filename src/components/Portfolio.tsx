@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Filter } from 'lucide-react';
+import { Filter } from 'lucide-react'; // حذفنا ExternalLink لأنه لم يعد مستخدمًا
 import { projects } from '../data';
 
 const Portfolio: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('الكل');
 
-  const activeProjects = projects.filter(project => project.is_active);
-
-  const categories = Array.from(new Set(activeProjects.map(project => project.category)));
+  const activeProjects = projects.filter((project) => project.is_active);
+  const categories = Array.from(new Set(activeProjects.map((p) => p.category)));
   const filters = ['الكل', ...categories];
 
-  const filteredProjects = activeFilter === 'الكل'
-    ? activeProjects
-    : activeProjects.filter(project => project.category === activeFilter);
+  const filteredProjects =
+    activeFilter === 'الكل'
+      ? activeProjects
+      : activeProjects.filter((p) => p.category === activeFilter);
 
   return (
     <section id="portfolio" className="section-padding bg-gray-50">
@@ -54,7 +54,11 @@ const Portfolio: React.FC = () => {
               }`}
             >
               <Filter className="w-4 h-4 inline-block ml-2" />
-              {filter} ({filter === 'الكل' ? activeProjects.length : activeProjects.filter(p => p.category === filter).length})
+              {filter} (
+              {filter === 'الكل'
+                ? activeProjects.length
+                : activeProjects.filter((p) => p.category === filter).length}
+              )
             </button>
           ))}
         </motion.div>
@@ -79,16 +83,20 @@ const Portfolio: React.FC = () => {
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
+
+                  {/* تم إخفاء زر عرض المشروع */}
+                  {/* 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="absolute bottom-4 left-4 right-4">
-                      <button className="w-full bg-white/20 backdrop-blur-md text-white py-2 px-4 rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors">{/*
+                      <button className="w-full bg-white/20 backdrop-blur-md text-white py-2 px-4 rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors">
                         <ExternalLink className="w-4 h-4 ml-2" />
-                     عرض المشروع
+                        عرض المشروع
                       </button>
                     </div>
                   </div>
+                  */}
                 </div>
-                            */}
+
                 {/* Content */}
                 <div className="p-6">
                   <div className="text-sm text-primary-600 font-medium mb-2">
