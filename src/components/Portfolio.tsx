@@ -81,9 +81,9 @@ const Portfolio: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="absolute bottom-4 left-4 right-4">
-                      <button className="w-full bg-white/20 backdrop-blur-md text-white py-2 px-4 rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors">
+                      <button className="w-full bg-white/20 backdrop-blur-md text-white py-2 px-4 rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors">{
                         <ExternalLink className="w-4 h-4 ml-2" />
-                        عرض المشروع
+                    
                       </button>
                     </div>
                   </div>
