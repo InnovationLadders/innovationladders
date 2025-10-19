@@ -217,16 +217,5 @@ export const projects: Project[] = [
     is_active: true,
     order_index: 18
   },
-  {
-    id: '19',
-    title: 'منصة المكافآت',
-    category: 'منصات مكافآت',
-    description:
-      'منصة لإدارة برامج المكافآت والنقاط للقطاعين التجاري وغير الربحي، تحفيز تطوعي، سلوكيات جيدة، إدارة كاملة للعميل.',
-    image: '/images/project-rewards.jpg',
-    tags: ['Loyalty', 'Points', 'Gamification'],
-    link: '#',
-    is_active: true,
-    order_index: 19
-  }
+  
 ];
