@@ -68,3 +68,159 @@ export const projects: Project[] = [
     order_index: 6
   }
 ];
+{
+    id: '7',
+    title: ' باص مكة السياحي',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-bus.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 7
+  }
+];
+{
+    id: '8',
+    title: ' هلا بوينت',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-halapoint.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 8
+  }
+];
+{
+    id: '9',
+    title: ' ساعة المسجد منارة',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-manarah.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 9
+  }
+];
+{
+    id: '10',
+    title: ' ساعة المسجد منارة',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-manarah.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 10
+  }
+];
+{
+    id: '11',
+    title: ' المظلة المتحركة',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-shades mov.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 11
+  }
+];
+{
+    id: '12',
+    title: ' نظام استقبال الطلبات',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-smart pickup.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 12
+  }
+];
+{
+    id: '13',
+    title: ' المطب الذكي',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-smart street.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 13
+  }
+];
+{
+    id: '14',
+    title: ' التيفو الالكتروني',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-tifo.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 14
+  }
+];
+{
+    id: '15',
+    title: ' القرية التقنية',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-technopark.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 15
+  }
+];
+{
+    id: '16',
+    title: ' المظلة المشجرة',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-tree shades.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 16
+  }
+];
+{
+    id: '17',
+    title: ' ساتر الورد',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-wall ros.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 17
+  }
+];
+{
+    id: '18',
+    title: 'العداد الذكي',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-water count.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 18
+  }
+];
+{
+    id: '19',
+    title: ' متجر زيارات',
+    category: 'تجارة إلكترونية',
+    description: 'متجر إلكتروني متخصص في بيع المنتجات التراثية الخليجية بتصميم عصري وتجربة مستخدم سلسة',
+    image: '/images/project-ziarat.jpg',
+    tags: ['E-commerce', 'Shopify', 'Payment Integration', 'Shipping'],
+    link: '#',
+    is_active: true,
+    order_index: 19
+  }
+];
