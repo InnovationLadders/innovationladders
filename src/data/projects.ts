@@ -123,4 +123,110 @@ export const projects: Project[] = [
   },
   {
     id: '11',
-    title: 'نظام استق
+    title: 'نظام استقبال الطلبات',
+    category: 'حلول أمان واستقبال',
+    description:
+      'منتج ذكي لاستلام الطرود دون تواصل مباشر، يستخدم رافعة أو صندوق ذكي، مع كاميرات ومستشعرات وتحكم عن بعد.',
+    image: '/images/project-smart-pickup.jpg',
+    tags: ['Security', 'IoT', 'Home Delivery'],
+    link: '#',
+    is_active: true,
+    order_index: 11
+  },
+  {
+    id: '12',
+    title: 'المطب الذكي',
+    category: 'حلول مرور ذكية',
+    description:
+      'مطب متغير الارتفاع حسب سرعة المركبة، يعمل عبر حساسات ونظام هيدروليكي ذكي، لتعزيز السلامة دون معاقبة الالتزام بالسرعة.',
+    image: '/images/project-smart-street.jpg',
+    tags: ['IoT', 'Traffic', 'Safety'],
+    link: '#',
+    is_active: true,
+    order_index: 12
+  },
+  {
+    id: '13',
+    title: 'التيفو الإلكتروني',
+    category: 'تقنيات عرض',
+    description:
+      'نظام إلكتروني لعرض التيفو في الملاعب والفعاليات الرياضية، يدعم العروض الثابتة والمتحركة، صديق للبيئة وسهل التركيب.',
+    image: '/images/project-tifo.jpg',
+    tags: ['LED', 'Event Tech', 'Sustainable'],
+    link: '#',
+    is_active: true,
+    order_index: 13
+  },
+  {
+    id: '14',
+    title: 'القرية التقنية',
+    category: 'مشروعات تطوير',
+    description:
+      'مجمع تكنولوجي متكامل لتسريع الاقتصاد الرقمي: أكاديمية، شركات، حاضنات، بنية تحتية للمدن الذكية، ومسجد ذكي، يدعم رؤية 2030.',
+    image: '/images/project-technopark.jpg',
+    tags: ['Smart City', 'Innovation', 'Education'],
+    link: '#',
+    is_active: true,
+    order_index: 14
+  },
+  {
+    id: '15',
+    title: 'المظلة المشجرة',
+    category: 'حلول بيئية',
+    description:
+      'مظلة على شكل شجرة لتوفير الظل، تتحرك عن بعد، مع إمكانية تركيب خلايا شمسية وكاميرات وإضاءات.',
+    image: '/images/project-tree-shades.jpg',
+    tags: ['Green Tech', 'Solar', 'Urban Furniture'],
+    link: '#',
+    is_active: true,
+    order_index: 15
+  },
+  {
+    id: '16',
+    title: 'ساتر الورد',
+    category: 'ديكور خارجي',
+    description:
+      'لوح زخرفي يوضع تحت النوافذ لحجب النظر للأسفل، يوفر منظر حوض ورد جمالي، مصمم حسب المقاسات ويثبت بمسامير خاصة.',
+    image: '/images/project-wall-ros.jpg',
+    tags: ['Design', 'Privacy', 'Landscape'],
+    link: '#',
+    is_active: true,
+    order_index: 16
+  },
+  {
+    id: '17',
+    title: 'العداد الذكي',
+    category: 'أنظمة مراقبة',
+    description:
+      'عداد مياه ذكي يعمل بتقنية IoT مع بطارية طويلة العمر، صمام تحكم عن بعد وتطبيق لإدارة الاستهلاك والفواتير.',
+    image: '/images/project-water-count.jpg',
+    tags: ['IoT', 'Metering', 'Smart Meter'],
+    link: '#',
+    is_active: true,
+    order_index: 17
+  },
+  {
+    id: '18',
+    title: 'متجر زيارات',
+    category: 'تجارة إلكترونية',
+    description:
+      'متجر متخصص لمنتجات الزيارات: ورد، توزيعات، شوكولا، أطباق، مع تغليف احترافي وتوصيل سريع.',
+    image: '/images/project-ziarat.jpg',
+    tags: ['E-commerce', 'Gifts', 'Delivery'],
+    link: '#',
+    is_active: true,
+    order_index: 18
+  },
+  {
+    id: '19',
+    title: 'منصة المكافآت',
+    category: 'منصات مكافآت',
+    description:
+      'منصة لإدارة برامج المكافآت والنقاط للقطاعين التجاري وغير الربحي، تحفيز تطوعي، سلوكيات جيدة، إدارة كاملة للعميل.',
+    image: '/images/project-rewards.jpg',
+    tags: ['Loyalty', 'Points', 'Gamification'],
+    link: '#',
+    is_active: true,
+    order_index: 19
+  }
+];
