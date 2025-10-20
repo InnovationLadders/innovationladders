@@ -71,13 +71,13 @@ const Contact: React.FC = () => {
     {
       icon: Phone,
       title: 'اتصل بنا',
-      details: ['+966 50 123 4567'],
+      details: ['+966 55 4344 899'],
       color: 'from-green-500 to-green-600'
     },
     {
       icon: Mail,
       title: 'راسلنا',
-      details: ['info@innovationladders.com'],
+      details: ['sales@innovationladders.com'],
       color: 'from-blue-500 to-blue-600'
     },
     {
