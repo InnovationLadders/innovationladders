@@ -35,11 +35,7 @@ const Footer: React.FC = () => {
     { icon: Linkedin, href: '#', color: 'hover:text-blue-700' }
   ];
 
-  const contactInfo = {
-    phone: [siteSettings.contactPhone],
-    email: [siteSettings.contactEmail],
-    address: ['جدة، المملكة العربية السعودية']
-  };
+  const contactInfo = siteSettings.contactInfo;
 
   const siteInfo = {
     siteName: siteSettings.siteName,

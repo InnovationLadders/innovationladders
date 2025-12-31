@@ -2,11 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Settings,
-  GraduationCap,
-  ShoppingCart,
   Lightbulb,
   TrendingUp,
-  Globe,
+  Zap,
+  Users,
+  Target,
   ArrowLeft
 } from 'lucide-react';
 import { services } from '../data';
@@ -14,11 +14,11 @@ import { services } from '../data';
 const Services: React.FC = () => {
   const iconMap: Record<string, React.ComponentType<any>> = {
     Settings,
-    GraduationCap,
-    ShoppingCart,
     Lightbulb,
     TrendingUp,
-    Globe
+    Zap,
+    Users,
+    Target
   };
 
   const activeServices = services.filter(service => service.is_active);

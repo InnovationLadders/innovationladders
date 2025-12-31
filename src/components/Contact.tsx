@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useSupabaseData } from '../hooks/useSupabaseData';
 import { services as staticServices } from '../data';
+import { siteSettings } from '../data/siteSettings';
 
 const Contact: React.FC = () => {
   const { addMessage } = useSupabaseData();
@@ -28,7 +29,7 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     setIsSubmitting(true);
     setSubmitMessage('');
 
@@ -71,26 +72,26 @@ const Contact: React.FC = () => {
     {
       icon: Phone,
       title: 'اتصل بنا',
-      details: ['+966 55 4344 899'],
+      details: siteSettings.contactInfo.phone,
       color: 'from-green-500 to-green-600'
     },
     {
       icon: Mail,
       title: 'راسلنا',
-      details: ['sales@innovationladders.com'],
+      details: siteSettings.contactInfo.email,
       color: 'from-blue-500 to-blue-600'
     },
     {
       icon: MapPin,
       title: 'زورنا',
-      details: ['جدة، المملكة العربية السعودية'],
+      details: siteSettings.contactInfo.address,
       color: 'from-red-500 to-red-600'
     },
     {
       icon: Clock,
       title: 'أوقات العمل',
-      details: ['الأحد - الخميس: 9:00 ص - 6:00 م'],
-      color: 'from-purple-500 to-purple-600'
+      details: siteSettings.contactInfo.workingHours,
+      color: 'from-orange-500 to-orange-600'
     }
   ];
 
@@ -166,10 +167,12 @@ const Contact: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="text-center">
+              <div className="text-center px-4">
                 <MapPin className="w-12 h-12 text-primary-600 mx-auto mb-4" />
                 <h4 className="text-xl font-bold text-gray-800 mb-2">موقعنا</h4>
-                <p className="text-gray-600">جدة، المملكة العربية السعودية</p>
+                {siteSettings.contactInfo.address.map((line, idx) => (
+                  <p key={idx} className="text-gray-600">{line}</p>
+                ))}
               </div>
             </motion.div>
           </motion.div>

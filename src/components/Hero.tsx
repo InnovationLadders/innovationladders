@@ -1,21 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Users, Award, Zap, TrendingUp } from 'lucide-react';
-import { projects } from '../data';
+import { siteSettings } from '../data/siteSettings';
 
 const Hero: React.FC = () => {
   const stats = [
-    { icon: Users, number: '500+', label: 'عميل راضٍ' },
-    { icon: Award, number: `${projects.length}+`, label: 'مشروع ناجح' },
-    { icon: Zap, number: '10+', label: 'سنوات خبرة' },
-    { icon: TrendingUp, number: '95%', label: 'معدل النجاح' },
+    { icon: Users, number: siteSettings.stats.clients, label: 'عميل راضٍ' },
+    { icon: Award, number: siteSettings.stats.projects, label: 'مشروع ناجح' },
+    { icon: Zap, number: siteSettings.stats.experience, label: 'سنوات خبرة' },
+    { icon: TrendingUp, number: siteSettings.stats.successRate, label: 'معدل النجاح' },
   ];
 
-  const heroContent = {
-    title: 'نحن نصنع الإبداع والابتكار',
-    subtitle: 'معمل الإبداع بجدة',
-    description: 'شريكك في التحول الرقمي وحلول الأعمال المبتكرة'
-  };
+  const heroContent = siteSettings.heroSection;
 
   return (
     <section id="home" className="relative min-h-screen flex items-center gradient-bg overflow-hidden">

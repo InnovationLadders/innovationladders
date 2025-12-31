@@ -1,16 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Target, Eye, Heart, Users, Award, Zap, Lightbulb } from 'lucide-react';
-import { projects } from '../data';
+import { siteSettings } from '../data/siteSettings';
 
 const About: React.FC = () => {
-  const aboutContent = {
-    title: 'عن معمل الابتكار',
-    description: 'نحن فريق من المبدعين والمبتكرين، نعمل على تقديم حلول تقنية متطورة',
-    mission: 'نسعى لتكون الشريك الأول في التحول الرقمي والابتكار',
-    vision: 'أن نكون رواد الإبداع والابتكار في المملكة العربية السعودية',
-    values: 'الجودة، الإبداع، الشفافية، والالتزام بتحقيق رضا العملاء'
-  };
+  const aboutContent = siteSettings.aboutSection;
 
   const values = [
     {
@@ -33,19 +27,19 @@ const About: React.FC = () => {
   const achievements = [
     {
       icon: Users,
-      number: '500+',
+      number: siteSettings.stats.clients,
       title: 'عميل راضٍ',
       description: 'عملاء يثقون في خدماتنا'
     },
     {
       icon: Award,
-      number: `${projects.length}+`,
+      number: siteSettings.stats.projects,
       title: 'مشروع ناجح',
       description: 'مشاريع تم تنفيذها بنجاح'
     },
     {
       icon: Zap,
-      number: '10+',
+      number: siteSettings.stats.experience,
       title: 'سنوات خبرة',
       description: 'في مجال التكنولوجيا والابتكار'
     }
@@ -89,7 +83,7 @@ const About: React.FC = () => {
               قصة نجاحنا
             </h3>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              بدأت رحلتنا في عام 2014 برؤية واضحة: تقديم حلول تقنية مبتكرة تساعد الشركات السعودية على مواكبة التطور التكنولوجي العالمي. منذ ذلك الحين، نمونا لنصبح واحدة من الشركات الرائدة في مجال التحول الرقمي والابتكار.
+              {aboutContent.story}
             </p>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
               نحن نؤمن بأن الإبداع والابتكار هما مفتاح النجاح في عالم الأعمال اليوم. لذلك، نعمل باستمرار على تطوير خدماتنا وحلولنا لتلبية احتياجات عملائنا المتغيرة.

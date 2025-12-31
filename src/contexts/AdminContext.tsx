@@ -52,35 +52,21 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
-    
-    // Check demo credentials first
-    if (email === 'mansour@innovationladders.com' && password === 'IL!ke123') {
-      const user: User = {
-        id: '1',
-        name: 'منصور الشهري',
-        email: 'mansour@innovationladders.com',
-        role: 'admin',
-        lastLogin: new Date().toISOString(),
-        isActive: true
-      };
-      setCurrentUser(user);
-      setIsAuthenticated(true);
-      setIsLoading(false);
-      return true;
-    }
 
     try {
       if (!supabase) {
+        console.error('Supabase client not initialized');
         setIsLoading(false);
         return false;
       }
-      // Use Supabase auth for admin login
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
       });
 
       if (error) {
+        console.error('Login error:', error.message);
         setIsLoading(false);
         return false;
       }
@@ -102,7 +88,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     } catch (err) {
       console.error('Login error:', err);
     }
-    
+
     setIsLoading(false);
     return false;
   };

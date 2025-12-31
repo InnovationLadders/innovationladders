@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Lightbulb } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { siteSettings } from '../data/siteSettings';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,15 +28,15 @@ const Header: React.FC = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg' 
+        isScrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-lg'
           : 'bg-transparent'
       }`}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <motion.div 
+          <motion.div
             className="flex items-center space-x-3 space-x-reverse"
             whileHover={{ scale: 1.05 }}
           >
@@ -44,10 +45,10 @@ const Header: React.FC = () => {
             </div>
             <div>
               <h1 className={`text-xl font-bold ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
-                معمل الإبداع
+                {siteSettings.siteName}
               </h1>
               <p className={`text-sm ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}>
-                Innovation Ladders
+                {siteSettings.siteNameEn}
               </p>
             </div>
           </motion.div>
